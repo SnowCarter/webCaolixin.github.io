@@ -235,225 +235,44 @@
     </nav>
 </header>
 
-    
-
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="bg-cover" style="background-image: url('/medias/cover.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <div class="description center-align post-title">
-                        
-                    </div>
+            <div class="brand">
+                <div class="title center-align">
+                
+                生活不仅有coding，还有文字和音乐
+                
+                </div>
+
+                <div class="description center-align">
+                
+                    谜一样的浮世，每一步都未知
+                
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Dynamically switch banner pictures every day.
+$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+</script>
 
 <main class="content">
+    <div id="galleries" class="container">
+        <div>
+            
 
-    <!-- 文章内容详情 -->
-    <div id="artDetail" class="container">
-        <div class="card">
-            <div class="card-content article-info">
-                
-                <div class="author-info">
-                    <span>
-                        <i class="fa fa-calendar fa-fw"></i>2018-09-18
-                    </span>
-                </div>
-            </div>
-            <hr>
-            <div class="card-content article-card-content">
-                <div id="articleContent">
-                    <!DOCTYPE HTML>
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8;">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="robots" content="all">
-  <meta name="robots" content="index,follow">
-  <link rel="stylesheet" type="text/css" href="https://qzone.qq.com/gy/404/style/404style.css">
-</head>
-<body>
-  <script type="text/plain" src="http://www.qq.com/404/search_children.js" charset="utf-8" homepageurl="/" homepagename="回到我的主页">
-  </script>
-  <script src="https://qzone.qq.com/gy/404/data.js" charset="utf-8"></script>
-  <script src="https://qzone.qq.com/gy/404/page.js" charset="utf-8"></script>
-</body>
-</html>
-                </div>
-                <hr />
-                
-                <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
-
-<div id="article-share">
-    
-    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
-    
-</div>
-
-<script src="/libs/share/js/social-share.min.js"></script>
-
-                <div class="reprint">
-                    <p>
-                        <span class="reprint-tip">转载请注明: </span>
-                        <a href="https://webCaolixin.github.io" class="b-link-green">长安曹公子的博客</a>
-                        <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                        <a href="/404.html" class="b-link-green"></a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        
-
-        
-        
-    <link rel="stylesheet" type="text/css" href="/libs/valine/custom.css"/>
-
-    <div id="valine-comments">
-        <div id="comments-notice">
-            <i class="fa fa-volume-up fa-lg fa-fw notice-icon"></i>
-            温馨提示：请您务必输入文明且有用的评论信息！本站评论系统支持匿名评论，建议您评论时填写个人昵称，邮箱和个人网址可选择填写，感谢您的支持！
-        </div>
-        <div class="comments" id="comments"></div>
-    </div>
-
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-    <script type="text/javascript">
-      var GUEST = ['nick','mail','link'];
-      var guest = 'nick,mail,link';
-      guest = guest.split(',').filter(function (item) {
-        return GUEST.indexOf(item)>-1;
-      });
-      new Valine({
-        el: '#comments' ,
-        verify: 'false',
-        notify: 'true',
-        appId: '8QCStxYhzTmcfzSimF0rbgWW-gzGzoHsz',
-        appKey: 'cRiWQY0NyClTBqBiF0HrCFgw',
-        placeholder: '请输入您的留言',
-        avatar: 'mm',
-        guest_info: guest,
-        pageSize: '10' || 10,
-        visitor: 'true'
-      });
-    </script>
-
-        
-
-        
-
-        
-
-<article id="articles" class="container prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">本篇</div>
-            <div class="card">
-                <a href="/404.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
-                        
-                        <span class="card-title"></span>
-                    </div>
-
-                    <div class="card-content article-content">
-                        <div class="summary">
-
-
-  
-  
-  
-  
-  
-
-
-  
-  
-  
-  
-
-</div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-calendar fa-fw"></i>2018-09-18
-                            </span>
-                            <span class="publish-author">
-                                <i class="fa fa-user fa-fw"></i>
-                                
-                                    长安曹公子
-                                
-                            </span>
-                        </div>
-                    </div>
-
+            <article>
+                <div class="row galleries-posts">
                     
-                </a>
-            </div>
+                </div>
+            </article>
         </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">本篇</div>
-            <div class="card">
-                <a href="/404.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
-                        
-                        <span class="card-title"></span>
-                    </div>
-
-                    <div class="card-content article-content">
-                        <div class="summary">
-
-
-  
-  
-  
-  
-  
-
-
-  
-  
-  
-  
-
-</div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-calendar fa-fw"></i>2018-09-18
-                            </span>
-                            <span class="publish-author">
-                                <i class="fa fa-user fa-fw"></i>
-                                
-                                    长安曹公子
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </a>
-            </div>
-        </div>
-        
-    </div>
-</article>
     </div>
 </main>
-
     <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m12 l8 copy-right">

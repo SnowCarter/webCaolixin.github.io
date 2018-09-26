@@ -4,7 +4,7 @@ $(function() {
      */
     let articleCardHover = function() {
         let animateClass = 'animated pulse';
-        $('#articles .article, #tags .article').hover(function() {
+        $('#articles .article, #tags .article, #galleries .article').hover(function() {
             $(this).addClass(animateClass);
         }, function() {
             $(this).removeClass(animateClass);

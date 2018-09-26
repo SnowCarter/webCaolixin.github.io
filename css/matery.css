@@ -712,6 +712,10 @@ code {
     margin-top: 20px;
 }
 
+#galleries .galleries-posts {
+  margin-top: 30px;
+}
+
 #tags .chip-default {
     color: #34495e;
     background-color: #fff;
