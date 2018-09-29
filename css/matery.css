@@ -115,8 +115,8 @@ pre code {
 }*/
 
 /*pre[class*="language-"] {
-  padding: 1.2em;
-  margin: .5em 0;
+    padding: 1.2em;
+    margin: .5em 0;
 }*/
 
 /*code[class*="language-"],
@@ -672,29 +672,30 @@ table tr:nth-child(2n), thead {
 }
 
 code {
-  padding: 2px 5px;
-  font-size: 0.91rem;
-  color: #c7254e;
-  background-color: #ffedf2;
-  border-radius: 2px;
+    padding: 3px 4px;
+    margin: 0 3px;
+    font-size: 0.95rem;
+    color: #c7254e;
+    background-color: #ffedf2;
+    border-radius: 3px;
 }
 
 /* 文章内容详情中 代码高亮组件样式自定义修改*/
 #articleContent pre.prettyprint ol {
-  padding-left: 3em;
+    padding-left: 3em;
 }
 
 #articleContent pre.prettyprint ol li {
-  line-height: 1.6;
-  padding-left: 0;
+    line-height: 1.6;
+    padding-left: 0;
 }
 
 #articleContent pre.prettyprint ol code {
-  font-size: 1em;
-  padding: 0;
-  background-color: transparent;
-  border-radius: 0;
-  font-family: consolas,Menlo,"PingFang SC","Microsoft YaHei",monospace;
+    font-size: 1em;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    font-family: consolas,Menlo,"PingFang SC","Microsoft YaHei",monospace;
 }
 
 @media only screen and (min-width: 600px) {
@@ -713,7 +714,7 @@ code {
 }
 
 #galleries .galleries-posts {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 #tags .chip-default {
