@@ -54,13 +54,18 @@ ul#article-lists .card {
 }
 
 #galleryContent img {
-    width: 65%;
+    width: 63%;
     margin-top: 30px;
 }
 
+@media screen and (max-width: 1024px) {
+    #galleryContent img {
+        width: 85%;
+    }
+}
+
 #galleryContent .gallery-tip-ceter {
-    min-width: 20%;
-    max-width: 63%;
+    max-width: 80%;
     display: table;
     padding: 5px;
     margin: 0 auto;

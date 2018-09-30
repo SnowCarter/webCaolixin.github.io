@@ -682,16 +682,16 @@ code {
 
 /* 文章内容详情中 代码高亮组件样式自定义修改*/
 #articleContent pre.prettyprint ol {
-    padding-left: 3em;
+    padding-left: 2.8em;
 }
 
 #articleContent pre.prettyprint ol li {
-    line-height: 1.6;
+    line-height: 1.4;
     padding-left: 0;
 }
 
 #articleContent pre.prettyprint ol code {
-    font-size: 1em;
+    font-size: 0.95em;
     padding: 0;
     background-color: transparent;
     border-radius: 0;
