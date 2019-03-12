@@ -316,7 +316,7 @@ function sum (num1, num2) {
 }
 </code></pre><p>上面的例子，先调用函数<code>sum</code>，在之后的代码中再声明该函数，完全没有问题。因为，<strong>在执行<code>sum(10, 20)</code>以及其他任何代码之前，JS解析器会先将<code>sum</code>函数的声明定义提升到当前执行环境的代码树的最顶端，保证之后随时可以访问调用该函数。这个过程叫做——<code>函数声明提升</code>。</strong></p>
 <p>而用函数表达式定义函数的方式，不会存在函数声明提升的过程。也就是说，必须等到解析器执行到函数表达式定义所在的代码行之后，函数才算被定义成功，之后才可以访问调用该函数。</p>
-<p>像下面这样调用<code>sum</code>函数式，执行后会报错，因为<strong>用函数表达式定义函数不会存在函数声明提升的过程</strong>，必须在函数表达式定义函数代码之后才能调用。</p>
+<p>像下面这样调用<code>sum</code>函数式，代码运行后会报错，因为<strong>用函数表达式定义函数不会存在函数声明提升的过程</strong>，必须在函数表达式定义函数代码之后才能调用。</p>
 <pre><code>console.log(sum(10,10));    // 这里会报错
 
 // ...省略很多代代码
@@ -325,7 +325,41 @@ function sum (num1, num2) {
 var sum = function(num1, num2){ 
   return num1 + num2; 
 };
-</code></pre><h3 id="JS中函数没有重载"><a href="#JS中函数没有重载" class="headerlink" title="JS中函数没有重载"></a>JS中函数没有重载</h3><p>不论是以哪种方式定义的函数，<strong>函数名实际就是一个指向函数实例的指针，本质上函数名和普通变量没什么区别。</strong>这也就好理解为什么JS中没有函数重载的概念。<br>看下面的例子：</p>
+</code></pre><p><strong>对于函数声明和函数表达式定义函数的区别，还有一点一定要更加注意：</strong></p>
+<p><strong>首先，JavaScript是支持动态创建函数的。</strong>也就是根据不同的需求或条件来动态定义函数。但是，动态创建须采用函数表达式的方式定义，使用函数声明方式会导致意想不到的错误。</p>
+<p>来看下面的例子：</p>
+<pre><code>function createFunction () {
+  // 像下面这样根据某个条件来动态声明一个函数很容易导致问题或出错！！！
+
+  // arguments是函数中内置的类数组对象，本文后面会讲到
+  if (arguments.length &gt; 1) {
+    function sum() {
+      // ...一种定义
+    }
+  } else {
+    function() {
+      // ...另一种定义
+    }
+  }
+}
+</code></pre><p>实际上，上面的动态定义函数的方式，在ECMAScript中属于无效语法，JavaScript引擎会尝试修正错误，将其转换为合理的状态。但问题是浏览器尝试修正错误的做法并不一致。大多数浏览器会返回第二个声明，忽略<code>arguments.length</code>条件；Firefox会在<code>arguments.length &gt; 1</code>时返回第一个函数声明，因此这种使用方式很危险！！！</p>
+<p>但是利用函数表达式的方式来动态定义函数，是可以达到预想的目的的！！</p>
+<p>上面的例子改写成下这样，就不会出现问题。</p>
+<pre><code>var sum = null;   // 也可以不赋初始值
+function createFunction () {
+  // arguments是函数中内置的类数组对象，本文后面会讲到
+  if (arguments.length &gt; 1) {
+    sum = function() {
+      // ...一种定义
+    }
+  } else {
+    sum = function() {
+      // ...另一种定义
+    }
+  }
+}
+</code></pre><p>仔细想想，这样能够完美达到目的也很好理解。我们先定义了一个<code>sum</code>变量，最后根据<code>arguments.length</code>是否大于0定义两个不同的匿名函数并赋值给<code>sum</code>变量，这和根据不同条件来为一个变量赋不同的值本质是完全一样的，当然不会有任何问题。</p>
+<h3 id="JS中函数没有重载（重要）"><a href="#JS中函数没有重载（重要）" class="headerlink" title="JS中函数没有重载（重要）"></a>JS中函数没有重载（重要）</h3><p>不论是以哪种方式定义的函数，<strong>函数名实际就是一个指向函数实例的指针，本质上函数名和普通变量没什么区别。</strong>这也就好理解为什么JS中没有函数重载的概念。<br>看下面的例子：</p>
 <pre><code>function sum(num){ 
   return num + 100; 
 } 
@@ -367,7 +401,7 @@ let res = cal();
 
 res(100);     // 200
 </code></pre><p>上面的例子，当执行<code>cal()</code>时，该函数返回了内部声明的<code>add</code>函数，我们将返回值再赋值给<code>res</code>变量，此时，<code>res</code>也就指向了<code>add</code>所指向的函数实例。之后我们再调用<code>res</code>函数，并传入参数，得到的结果也是<code>200</code>。</p>
-<h3 id="函数的内部属性"><a href="#函数的内部属性" class="headerlink" title="函数的内部属性"></a>函数的内部属性</h3><h4 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h4><p>函数中包含一个内置的<code>arguments</code>属性，它是一个类数组对象，包含着所有传入函数中的参数，你可以用数组下标的方式访问其中的元素。</p>
+<h3 id="函数的内部属性"><a href="#函数的内部属性" class="headerlink" title="函数的内部属性"></a>函数的内部属性</h3><h4 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h4><p>函数中包含一个内置的<code>arguments</code>对象，它是一个类数组对象，包含着所有传入函数中的参数，你可以用数组下标的方式访问其中的元素。</p>
 <pre><code>function show (a, b, c, d, e, f) {
   console.log(arguments[4]);    // 输出[333, 444]
 }
