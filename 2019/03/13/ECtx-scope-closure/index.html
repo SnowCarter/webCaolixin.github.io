@@ -11,7 +11,7 @@
     
     <meta name="keywords" content="JavaScript,hexo-theme-matery">
     <meta name="description" content="
-JavaScript中的函数一直是一个很有讨论性的话题点。函数本身不仅仅是一个引用类型——所有函数都是Function类型的实例，更重要的是因为函数还会涉及到执行环境、作用域、闭包以及让人头疼的this等等…这篇文章我们来回顾一下与函数有">
+JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂">
 
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
@@ -20,21 +20,21 @@ JavaScript中的函数一直是一个很有讨论性的话题点。函数本身�
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="JavaScript-Function">
-    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/12/JavaScript-Function/">
+    <meta property="og:title" content="从JS运行机制彻底理解执行环境、作用域、作用域链、闭包">
+    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/13/ECtx-scope-closure/">
     <meta property="og:site_name" content="长安曹公子的博客">
     <meta property="og:description" content="
-JavaScript中的函数一直是一个很有讨论性的话题点。函数本身不仅仅是一个引用类型——所有函数都是Function类型的实例，更重要的是因为函数还会涉及到执行环境、作用域、闭包以及让人头疼的this等等…这篇文章我们来回顾一下与函数有">
+JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂">
     <meta property="og:locale" content="zh-CN">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="JavaScript-Function">
+    <meta name="twitter:title" content="从JS运行机制彻底理解执行环境、作用域、作用域链、闭包">
     <meta name="twitter:description" content="
-JavaScript中的函数一直是一个很有讨论性的话题点。函数本身不仅仅是一个引用类型——所有函数都是Function类型的实例，更重要的是因为函数还会涉及到执行环境、作用域、闭包以及让人头疼的this等等…这篇文章我们来回顾一下与函数有">
+JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂">
     
-    <link rel="canonical" href="/2019/03/12/JavaScript-Function/">
+    <link rel="canonical" href="/2019/03/13/ECtx-scope-closure/">
 
-    <title>JavaScript-Function | 长安曹公子的博客</title>
+    <title>从JS运行机制彻底理解执行环境、作用域、作用域链、闭包 | 长安曹公子的博客</title>
 
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -243,13 +243,13 @@ JavaScript中的函数一直是一个很有讨论性的话题点。函数本身�
 
     
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        JavaScript-Function
+                        从JS运行机制彻底理解执行环境、作用域、作用域链、闭包
                     </div>
                 </div>
             </div>
@@ -274,7 +274,7 @@ JavaScript中的函数一直是一个很有讨论性的话题点。函数本身�
                 
                 <div class="author-info">
                     <span>
-                        <i class="fa fa-calendar fa-fw"></i>2019-03-12
+                        <i class="fa fa-calendar fa-fw"></i>2019-03-13
                     </span>
                 </div>
             </div>
@@ -285,183 +285,71 @@ JavaScript中的函数一直是一个很有讨论性的话题点。函数本身�
 
                 
                     <blockquote>
-<p>JavaScript中的函数一直是一个很有讨论性的话题点。函数本身不仅仅是一个引用类型——所有函数都是Function类型的实例，更重要的是因为函数还会涉及到执行环境、作用域、闭包以及让人头疼的this等等…这篇文章我们来回顾一下与函数有关的一些值得注意的地方。</p>
+<p>JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂，模模糊糊。最近，仔细捋了捋相关问题的思路，对这些问题的理解清晰深入了不少，在这里和大家分享。</p>
 </blockquote>
-<h3 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h3><p>定义函数有三种方法：<br>1、函数声明 2、函数表达式 3、使用Function构造函数</p>
-<h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><pre><code>function sum (num1, num2) {
-  return num1 + num2;
-}
-</code></pre><h4 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h4><p>用函数表达式的方式定义函数，就是将一个匿名函数赋值给一个变量。<br>文章开头说道，所有函数都是Function类型的一个实例，所以，这个变量（引用类型）最终就是一个指向该匿名函数实例的指针。</p>
-<pre><code>var sum = function (num1, num2) {
-  return num1 + num2;
-}
-</code></pre><p>以上两种函数定义方式，从效果上看是相同的，几乎相差无几，但它们之间还是存在一些细微的差别，我们稍后再讲。</p>
-<h4 id="使用Function构造函数"><a href="#使用Function构造函数" class="headerlink" title="使用Function构造函数"></a>使用Function构造函数</h4><p>因为所有函数都是Function类型的实例，所以调用<code>new Function()</code>构造函数，也可以定义函数。</p>
-<pre><code>// 构造函数中最后一个参数始终都被看成是函数体，而前面的所有参数则是枚举出的函数的形参。
-var sum = new Function(&quot;num1&quot;, &quot;num2&quot;, &quot;return num1 +num2&quot;)
-</code></pre><p>实际开发中，很少使用这种方法定义函数。原因主要有两点：</p>
+<p>这篇文章，我会按照执行环境、作用域、作用域链、闭包的顺序，结合着JS中函数的运行机制来梳理相关知识。因为这样的顺序刚好也是这些知识点相互关联且递进的顺序，同时这些知识点都又与函数有着千丝万缕的联系。这样讲解，会更容易让大家彻底理解，至少我就是这样理解清晰的。</p>
+<p>废话不再多说，我们开始。</p>
+<h3 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h3><p>首先，我们还是要理解一下什么是执行环境，这也是理清后面问题的基础。</p>
+<blockquote>
+<p>执行环境是JavaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为。——《JavaScript高级程序设计》</p>
+</blockquote>
+<p>抽象！不理解！没关系，我来解释：其实，执行环境就是JS中提出的一个概念，它是为了保证代码合理运行采用的一种机制。</p>
+<p>一种概念…机制…更抽象，那它到底是什么？<strong>实际上，执行环境在JS机制内部<code>就是用一个对象来表示的</code>，称作<code>执行环境对象</code></strong>。</p>
+<p>那么，这个执行环境对象到底又是何时、怎么产生的呢？有以下两种情况：</p>
 <ol>
-<li>定义不方便。如果函数体代码过长，使用这种方法，因为最后一个参数是字符串格式，不易换行高亮等。</li>
-<li>这种方式会导致解析两次代码，影响性能。第一次是解析常规JS代码，第二次是解析传入构造函数中的字符串。</li>
+<li>在页面中的脚本开始执行时，就会产生一个“全局执行环境”。它是最外围（范围最大，或者说层级最高）的一个执行环境，对应着一个全局执行环境对象。在Web浏览器中，这个对象就是<code>Window</code>对象。</li>
+<li>当一个函数被调用的时候，也会创建一个属于该函数的执行环境，称作“局部执行环境”（或者称作函数执行环境），它也对应着自己的执行环境对象。</li>
 </ol>
-<h4 id="函数声明和函数表达式的区别（重要）"><a href="#函数声明和函数表达式的区别（重要）" class="headerlink" title="函数声明和函数表达式的区别（重要）"></a>函数声明和函数表达式的区别（重要）</h4><p>虽然函数声明和函数表达式都可以定义函数，但是解析器在处理他们的时候还是存在着一些差别。</p>
-<p>当解析器进入一个执行环境并向环境中加载数据的时候，对于用函数声明定义的函数，解析器会率先读取他们，保证在执行任何代码之前，就可以访问调用这些函数。</p>
-<pre><code>console.log(sum(10, 20));   // 30
+<p>因此，执行环境就分为<code>全局执行环境</code>和<code>局部执行环境</code>两种，每个执行环境都有一个属于自己的执行环境对象。</p>
+<p>既然执行环境是使用一个对象表示的，那么对象就有属性。我们来看看执行环境对象的三个有意思的属性。<code>变量对象</code>、<code>[[scope]]</code>、<code>this</code>。</p>
+<p><img src="/medias/article/coding/ectx-scope-closure/context-object.jpg" alt="执行环境对象"></p>
+<h4 id="执行环境对象中的变量对象"><a href="#执行环境对象中的变量对象" class="headerlink" title="执行环境对象中的变量对象"></a>执行环境对象中的变量对象</h4><p>《JS高程》中明确说明，执行环境定义了变量或函数有权访问的其他数据。那么这些数据到底被放（存储）在哪里呢？</p>
+<p>其实，每个执行环境都有一个与之关联的变量对象，在环境中定义的所有变量和函数都保存在这个对象中。我们在代码无法访问这个对象，但解析器在处理数据时会在内部使用它。</p>
+<p>通俗地说就是：一个执行环境中的所有变量和函数都保存在该执行环境对象的变量对象（属性）中。</p>
+<h4 id="先理解作用域"><a href="#先理解作用域" class="headerlink" title="先理解作用域"></a>先理解作用域</h4><p>在讲<code>[[scope]]</code>前，我们就需要先弄清楚什么是<strong>作用域</strong>了。因为作用域与<code>[[scope]]</code>之间存在着非常紧密的关系。</p>
+<blockquote>
+<p>《JS高程》中没有明确给出作用域的定义和描述。其实，作用域就是变量或者函数可以被访问的代码范围，或者说作用域就是变量和函数所起作用的范围。</p>
+</blockquote>
+<p>这样看来作用域也像是一个概念，它是用来描述一个区域（或者说范围）的。在JS中，作用域分为<code>全局作用域</code>、<code>局部作用域</code>两种。</p>
+<p>我们来看看这两种作用域的具体描述：</p>
+<ol>
+<li>在页面中的脚本开始执行时，就会产生一个“全局作用域”。它是最外围（范围最大，或者说层级最高）的一个作用域。全局作用域的变量、函数<br>可以在代码的任何地方访问到。</li>
+<li>当一个函数被创建的时候，会创建一个“局部作用域”。局部作用域中的函数、变量只能在某些局部代码中可以访问到。</li>
+</ol>
+<p>看一个例子：</p>
+<pre><code>var g = &#39;Global&#39;;
 
-// ...省略很多代代码
+function outer() {
+  var out = &#39;outer&#39;;
 
-// 函数声明定义函数
-function sum (num1, num2) {
-  return sum1 + sum2;
-}
-</code></pre><p>上面的例子，先调用函数<code>sum</code>，在之后的代码中再声明该函数，完全没有问题。因为，<strong>在执行<code>sum(10, 20)</code>以及其他任何代码之前，JS解析器会先将<code>sum</code>函数的声明定义提升到当前执行环境的代码树的最顶端，保证之后随时可以访问调用该函数。这个过程叫做——<code>函数声明提升</code>。</strong></p>
-<p>而用函数表达式定义函数的方式，不会存在函数声明提升的过程。也就是说，必须等到解析器执行到函数表达式定义所在的代码行之后，函数才算被定义成功，之后才可以访问调用该函数。</p>
-<p>像下面这样调用<code>sum</code>函数式，代码运行后会报错，因为<strong>用函数表达式定义函数不会存在函数声明提升的过程</strong>，必须在函数表达式定义函数代码之后才能调用。</p>
-<pre><code>console.log(sum(10,10));    // 这里会报错
-
-// ...省略很多代代码
-
-// 函数表达式定义函数
-var sum = function(num1, num2){ 
-  return num1 + num2; 
-};
-</code></pre><p><strong>对于函数声明和函数表达式定义函数的区别，还有一点一定要更加注意：</strong></p>
-<p><strong>首先，JavaScript是支持动态创建函数的。</strong>也就是根据不同的需求或条件来动态定义函数。但是，动态创建须采用函数表达式的方式定义，使用函数声明方式会导致意想不到的错误。</p>
-<p>来看下面的例子：</p>
-<pre><code>function createFunction () {
-  // 像下面这样根据某个条件来动态声明一个函数很容易导致问题或出错！！！
-
-  // arguments是函数中内置的类数组对象，本文后面会讲到
-  if (arguments.length &gt; 1) {
-    function sum() {
-      // ...一种定义
-    }
-  } else {
-    function() {
-      // ...另一种定义
-    }
+  function inner() {
+    var inn = &#39;inner&#39;;
   }
-}
-</code></pre><p>实际上，上面的动态定义函数的方式，在ECMAScript中属于无效语法，JavaScript引擎会尝试修正错误，将其转换为合理的状态。但问题是浏览器尝试修正错误的做法并不一致。大多数浏览器会返回第二个声明，忽略<code>arguments.length</code>条件；Firefox会在<code>arguments.length &gt; 1</code>时返回第一个函数声明，因此这种使用方式很危险！！！</p>
-<p>但是利用函数表达式的方式来动态定义函数，是可以达到预想的目的的！！</p>
-<p>上面的例子改写成下这样，就不会出现问题。</p>
-<pre><code>var sum = null;   // 也可以不赋初始值
-function createFunction () {
-  // arguments是函数中内置的类数组对象，本文后面会讲到
-  if (arguments.length &gt; 1) {
-    sum = function() {
-      // ...一种定义
-    }
-  } else {
-    sum = function() {
-      // ...另一种定义
-    }
-  }
-}
-</code></pre><p>仔细想想，这样能够完美达到目的也很好理解。我们先定义了一个<code>sum</code>变量，最后根据<code>arguments.length</code>是否大于0定义两个不同的匿名函数并赋值给<code>sum</code>变量，这和根据不同条件来为一个变量赋不同的值本质是完全一样的，当然不会有任何问题。</p>
-<h3 id="JS中函数没有重载（重要）"><a href="#JS中函数没有重载（重要）" class="headerlink" title="JS中函数没有重载（重要）"></a>JS中函数没有重载（重要）</h3><p>不论是以哪种方式定义的函数，<strong>函数名实际就是一个指向函数实例的指针，本质上函数名和普通变量没什么区别。</strong>这也就好理解为什么JS中没有函数重载的概念。<br>看下面的例子：</p>
-<pre><code>function sum(num){ 
-  return num + 100; 
 } 
-function sum(num) { 
-  return num + 200; 
-} 
-console.log(addSomeNumber(100));    // 300 
-</code></pre><p>上面这个例子中声明了两个同名<code>sum</code>函数，而结果则是后面的函数定义覆盖了前面的函数，更准确的说<code>sum</code>现在指向后面定义的函数。</p>
-<p>为什么会这样？就是因为JS中函数不存在重载，其实上面的代码实际上与下面的代码没有什么区别。</p>
-<pre><code>var sum = function (num){ 
-  return num + 100; 
-}; 
-sum = function (num) { 
-  return num + 200; 
-}; 
-console.log(sum(100));    // 300 
-</code></pre><p>原来，当第一次定义<code>sum</code>之后，<code>sum</code>指向第一个函数实例，当再次定义第二个函数时，<code>sum</code>会重新指向第二个函数实例。</p>
-<h3 id="函数可以作为值传递"><a href="#函数可以作为值传递" class="headerlink" title="函数可以作为值传递"></a>函数可以作为值传递</h3><p>我们多次强调函数名实际就是一个指向函数实例的指针，本质上函数名和普通变量没什么区别。既然是变量，那么函数也就可以作为另一些函数的参数和返回值来传递。</p>
-<h4 id="函数作为参数"><a href="#函数作为参数" class="headerlink" title="函数作为参数"></a>函数作为参数</h4><pre><code>function add (num) {
-  return num + 100;
+</code></pre><p>上面这个例子，产生的作用域就如下图所示：</p>
+<p><img src="/medias/article/coding/ectx-scope-closure/scope.jpg" alt="作用域"></p>
+<p><strong>请注意上面1./2.这两段话！！！</strong>是不是觉得很熟悉，似曾相识？！没错，这两段话和介绍全局/局部执行环境（全局/局部执行环境对象）时候的描述几乎一摸一样！作用域是不是和执行环境对象有着千丝万缕的联系呢？与此同时，我们再仔细回忆一下：<strong>①</strong>作用域就是变量或者函数可以被访问的代码范围。<strong>②</strong>一个执行环境中定义的所有变量和函数都保存在它对应的执行环境对象中。</p>
+<p>结合上面所述，其实不难得出：尽管作用域的描述更像是一个概念，但如果一定要将它具象化，问它到底是什么东西，与执行环境有什么关系？<strong><code>其实，作用域所对应的（不是相等、等于）是执行环境对象中的变量对象。</code></strong></p>
+<p>明白了这些，我们就可以来看看执行环境对象中的[[scope]]属性。</p>
+<h4 id="执行环境对象中的-scope"><a href="#执行环境对象中的-scope" class="headerlink" title="执行环境对象中的[[scope]]"></a>执行环境对象中的[[scope]]</h4><p>首先，要明确的是，执行环境对象中的[[scope]]属性值是一个指针，它指向该执行环境的作用域链。</p>
+<p>到底什么是作用域链呢？<strong>作用域链本质上就是一个<code>有序的列表</code>，而列表中的每一项都是一个<code>指向执行环境对象中的变量对象的指针</code>。</strong></p>
+<p>那么，这个作用域链到底是怎么形成的呢？它里面指向变量对象的指针的顺序又是如何让规定的呢？我们用下面这个简单的例子说明。</p>
+<pre><code>var g = &#39;Hello&#39;;
+
+function inner() {
+  var inn = &#39;Inner&#39;;
+  var res = g + inn;
+  return res;
 }
 
-function cal(calFun, num) {
-  return calFun(num);
-}
-
-cal(add, 100);    // 200
-</code></pre><p>上面的例子中，函数<code>cal</code>接收一个函数和一个数值作为参数，最终返回值是第二个参数（数值）在第一个参数（函数）中的执行结果。而第一个参数——函数中具体做的事情，就是将传入的数值参数与100求和。</p>
-<h4 id="函数作为返回值"><a href="#函数作为返回值" class="headerlink" title="函数作为返回值"></a>函数作为返回值</h4><p>此外，函数也可以作为另一个函数的返回值。对上面例子进行稍微的改造，也可达到相同的目的。</p>
-<pre><code>function cal() {
-  function add (num) {
-    return num + 100;
-  }
-  // 这里返回的是add函数名，而不是函数的调用
-  return add;
-}
-
-let res = cal();
-
-res(100);     // 200
-</code></pre><p>上面的例子，当执行<code>cal()</code>时，该函数返回了内部声明的<code>add</code>函数，我们将返回值再赋值给<code>res</code>变量，此时，<code>res</code>也就指向了<code>add</code>所指向的函数实例。之后我们再调用<code>res</code>函数，并传入参数，得到的结果也是<code>200</code>。</p>
-<h3 id="函数的内部属性"><a href="#函数的内部属性" class="headerlink" title="函数的内部属性"></a>函数的内部属性</h3><h4 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h4><p>函数中包含一个内置的<code>arguments</code>对象，它是一个类数组对象，包含着所有传入函数中的参数，你可以用数组下标的方式访问其中的元素。</p>
-<pre><code>function show (a, b, c, d, e, f) {
-  console.log(arguments[4]);    // 输出[333, 444]
-}
-
-show(1, &#39;222&#39;, true, null, [333, 444], {aa: &#39;aaa&#39;, b: function() {}});
-</code></pre><p><code>arguments</code>对象自己还有一个<code>callee</code>属性，该属性是一个指针，指向拥有这个<code>arguments</code>对象的函数，也就是这个<code>arguments</code>所属的函数。</p>
-<h4 id="arguments-callee"><a href="#arguments-callee" class="headerlink" title="arguments.callee"></a>arguments.callee</h4><p>在递归函数中，我们可能会经常使用到<code>arguments.callee</code>这一属性。以一个经典的阶乘函数为例:</p>
-<pre><code>// 递归阶乘的经典例子
-function factorial(num) {
-  if (num &lt;=1) {
-    return 1;
-  } else {
-    return num * factorial(num-1);
-  }
-}
-
-// 递归阶乘的优化例子
-function factorial(num) {
-  if (num &lt;=1) {
-    return 1;
-  } else {
-    // 这里的arguments.callee又指向factorial函数
-    return num * arguments.callee(num-1);
-  }
-}
-</code></pre><p>这样写的好处是，当指向该递归函数的函数名发生变化时，递归函数也能顺利执行完成。如果采用上面经典例子的写法，当出现如下代码逻辑时，就会出错。</p>
-<pre><code>// 将另一变量指向递归阶乘函数
-var trueFactorial = factorial;
-
-// 改写原递归阶乘函数
-factorial = function() {
-  return 0;
-};
-
-console.log(trueFactorial(5));
-console.log(factorial(5));
-</code></pre><p>如果以递归阶乘的经典例子定义<code>factorial</code>函数，那么<code>trueFactorial(5)</code>这一行就会出错。因为执行到<code>trueFactorial</code>函数内部<code>return num * factorial(num-1);</code>代码时，<code>factorial</code>实际已经指向了<code>function() {return 0;}</code>，计算结果就会出错。但用递归阶乘的优化例子就不会出现这个问题，因为执行<code>trueFactorial(5)</code>语句时，<code>arguments.callee</code>指向<code>trueFactorial</code>函数。</p>
-<h4 id="arguments-callee-caller"><a href="#arguments-callee-caller" class="headerlink" title="arguments.callee.caller"></a>arguments.callee.caller</h4><p><code>arguments.callee.caller</code>这个属性中保存着调用当前函数的函数的引用。也就是说我们可以通过该属性来获得<code>arguments</code>所属于的那个函数（<code>arguments.callee</code>）是在哪个函数（<code>arguments.callee.caller</code>）中被调用的。</p>
-<p>需要注意的是：如果是在全局作用域中调用的当前函数，<code>arguments.callee.caller</code>的获取到的值为<strong><code>null</code></strong>。</p>
-<p>ES5后，我们也可以直接通过函数实例对象的caller属性来直接访问这一属性。</p>
-<pre><code>function outer(){
-  inner();
-}
-
-function inner(){
-  console.log(inner.caller);    // 打印出outer函数的源码。因为inner是在outer中被调用的
-}
-
-outer();
-</code></pre><p>也可以这么写：</p>
-<pre><code>function outer(){
-  inner();
-}
-
-function inner(){
-  alert(arguments.callee.caller);   // 打印出outer函数的源码。
-}
-
-outer();
-</code></pre><h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><p>函数中另一个有意思又令人头疼的属性——this，由于this指向涉及的内容较多，情况稍微复杂一些，我们将会专门用一篇文章来探讨this相关问题。<br>但概括来说，<strong>this引用的是函数据以执行的环境对象</strong>。当this所在的函数在全局作用域中调用时，它指向window对象；当作为对象的方法调用时，它指向该对象。</p>
+inner();
+</code></pre><p>当执行了<code>inner();</code>这一行代码后，代码执行流进入<code>inner</code>函数内部，此时，JS内部会先创建<code>inner</code>函数的局部执行环境，然后创建该环境的作用域链。这个作用域链的最前端，就是<code>inner</code>执行环境自己的执行环境对象中的<code>变量对象</code>，作用域链第二项，就是全局环境的环境对象中的<code>变量对象</code>。如下图所示：</p>
+<p><img src="/medias/article/coding/ectx-scope-closure/scope-chain.jpg" alt="作用域链"></p>
+<p>形成了这样的作用域链之后，就可以有秩序地访问一个变量了。以这个例子为例：当执行<code>inner();</code>进入函数体内后，执行<code>g + inn;</code>一行，需要访问变量<code>g、inn</code>，此时JS内部机制就会沿着这条作用域链查找所需变量。在当前<code>inner</code>函数的作用域中找到了变量<code>inn</code>，值为<code>&#39;Inner&#39;</code>，查找终止。但是却没有找到变量<code>g</code>，于是沿着作用域链向上查找，进入全局作用域，在全局变量对象中找到了变量<code>g</code>，值为<code>&#39;Hello&#39;</code>，查找终止。计算得出<code>res</code>为<code>&#39;HelloInner&#39;</code>，并在最后返回结果。</p>
+<p>与上面所讲机制完全相同，如果是多层执行环境嵌套，则作用域链是这么形成的：</p>
+<blockquote>
+<p>当代码执行进入一个执行环境时，JS内部会开始创建该环境的作用域链。作用域链的<strong>最前端</strong>，始终都是<strong>当前执行环境的执行环境对象中的变量对象</strong>。如果这个环境是<strong>局部执行环境（函数执行环境）</strong>，则将其<strong>活动对象</strong>作为<strong>变量对象</strong>。作用域链中的下一个是来自<strong>外层环境对象的变量对象</strong>，而再下一个则是来自<strong>再外层环境对象的变量对象</strong>…… 这样<strong>一直延续到全局执行环境对象的变量对象</strong>。所以，全局执行环境的变量对象始终都是作用域链中的最后一个对象。</p>
+</blockquote>
 
                 
                 </div>
@@ -483,7 +371,7 @@ outer();
                         <span class="reprint-tip">转载请注明: </span>
                         <a href="https://webCaolixin.github.io" class="b-link-green">长安曹公子的博客</a>
                         <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                        <a href="/2019/03/12/JavaScript-Function/" class="b-link-green">JavaScript-Function</a>
+                        <a href="/2019/03/13/ECtx-scope-closure/" class="b-link-green">从JS运行机制彻底理解执行环境、作用域、作用域链、闭包</a>
                     </p>
                 </div>
             </div>
@@ -537,7 +425,7 @@ outer();
     <div class="row article-row">
         
         <div class="article col s12 m6">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
                 <a href="/2019/03/13/ECtx-scope-closure/">
                     <div class="card-image">
@@ -547,11 +435,10 @@ outer();
                         
                         <span class="card-title">从JS运行机制彻底理解执行环境、作用域、作用域链、闭包</span>
                     </div>
+
                     <div class="card-content article-content">
                         <div class="summary">
-                            
-JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂
-                        </div>
+JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂</div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-calendar fa-fw"></i>2019-03-13
@@ -564,6 +451,7 @@ JavaScript中的执行环境、作用域、作用域链、闭包一直是一个�
                             </span>
                         </div>
                     </div>
+
                     
                     <div class="card-action article-tags">
                         
@@ -581,24 +469,22 @@ JavaScript中的执行环境、作用域、作用域链、闭包一直是一个�
         <div class="article col s12 m6">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2019/03/04/JavaScript-Event/">
+                <a href="/2019/03/12/JavaScript-Function/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JavaScript事件——基础篇">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="JavaScript-Function">
                         
-                        <span class="card-title">JavaScript事件——基础篇</span>
+                        <span class="card-title">JavaScript-Function</span>
                     </div>
                     <div class="card-content article-content">
                         <div class="summary">
-                            什么是事件
-事件，就是文档或浏览器窗口中发生的一些特定的交互瞬间。——《JavaScript高级程序设计》事件就是用户或者浏览器自身执行的某种动作。——《JavaScript高级程序设计》
-
-通俗地讲，事件就是用户与文档页面、浏览器交互时做
+                            
+JavaScript中的函数一直是一个很有讨论性的话题点。函数本身不仅仅是一个引用类型——所有函数都是Function类型的实例，更重要的是因为函数还会涉及到执行环境、作用域、闭包以及让人头疼的this等等…这篇文章我们来回顾一下与函数有
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-calendar fa-fw"></i>2019-03-04
+                                <i class="fa fa-calendar fa-fw"></i>2019-03-12
                             </span>
                             <span class="publish-author">
                                 <i class="fa fa-user fa-fw"></i>
