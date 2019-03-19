@@ -10,8 +10,12 @@
 
     
     <meta name="keywords" content="ES6,hexo-theme-matery">
-    <meta name="description" content="
-为了使JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言，ECMAScript 6.0（简称ES6）在标准中添加了很多新的特性。我们将用几篇文章总结一下ES6标准中一些常用的新特性。本片文章主要讲解ES6中的let">
+    <meta name="description" content="解构赋值
+ES6允许按照一定的模式，从数组和对象中提取值，然后对变量赋值，这被称为解构赋值。
+
+这听起来比较抽象。我们来用一个简单的例子，直观明了的解释什么是解构赋值。
+在解构赋值之前，我们如果需要一次性声明并赋值多个变量，需要这样操作：
+">
 
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
@@ -20,21 +24,29 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ES6 - let、const、var的区别">
-    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/15/ES6-let-const/">
+    <meta property="og:title" content="ES6 - 解构赋值">
+    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/18/ES6-destructuring/">
     <meta property="og:site_name" content="长安曹公子的博客">
-    <meta property="og:description" content="
-为了使JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言，ECMAScript 6.0（简称ES6）在标准中添加了很多新的特性。我们将用几篇文章总结一下ES6标准中一些常用的新特性。本片文章主要讲解ES6中的let">
+    <meta property="og:description" content="解构赋值
+ES6允许按照一定的模式，从数组和对象中提取值，然后对变量赋值，这被称为解构赋值。
+
+这听起来比较抽象。我们来用一个简单的例子，直观明了的解释什么是解构赋值。
+在解构赋值之前，我们如果需要一次性声明并赋值多个变量，需要这样操作：
+">
     <meta property="og:locale" content="zh-CN">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="ES6 - let、const、var的区别">
-    <meta name="twitter:description" content="
-为了使JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言，ECMAScript 6.0（简称ES6）在标准中添加了很多新的特性。我们将用几篇文章总结一下ES6标准中一些常用的新特性。本片文章主要讲解ES6中的let">
-    
-    <link rel="canonical" href="/2019/03/15/ES6-let-const/">
+    <meta name="twitter:title" content="ES6 - 解构赋值">
+    <meta name="twitter:description" content="解构赋值
+ES6允许按照一定的模式，从数组和对象中提取值，然后对变量赋值，这被称为解构赋值。
 
-    <title>ES6 - let、const、var的区别 | 长安曹公子的博客</title>
+这听起来比较抽象。我们来用一个简单的例子，直观明了的解释什么是解构赋值。
+在解构赋值之前，我们如果需要一次性声明并赋值多个变量，需要这样操作：
+">
+    
+    <link rel="canonical" href="/2019/03/18/ES6-destructuring/">
+
+    <title>ES6 - 解构赋值 | 长安曹公子的博客</title>
 
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -249,7 +261,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        ES6 - let、const、var的区别
+                        ES6 - 解构赋值
                     </div>
                 </div>
             </div>
@@ -274,7 +286,7 @@
                 
                 <div class="author-info">
                     <span>
-                        <i class="fa fa-calendar fa-fw"></i>2019-03-15
+                        <i class="fa fa-calendar fa-fw"></i>2019-03-18
                     </span>
                 </div>
             </div>
@@ -284,147 +296,184 @@
                 
 
                 
-                    <blockquote>
-<p>为了使JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言，<code>ECMAScript 6.0</code>（简称<code>ES6</code>）在标准中添加了很多新的特性。我们将用几篇文章总结一下ES6标准中一些常用的新特性。本片文章主要讲解ES6中的<code>let</code>、<code>const</code>命令，并区分其与<code>var</code>命令的区别。</p>
+                    <h3 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h3><blockquote>
+<p>ES6允许按照<strong>一定的模式</strong>，从数组和对象中提取值，然后对变量赋值，这被称为<code>解构赋值</code>。</p>
 </blockquote>
-<h3 id="let-与-var-的区别"><a href="#let-与-var-的区别" class="headerlink" title="let 与 var 的区别"></a>let 与 var 的区别</h3><h4 id="一、let声明的变量只在其所在的块级作用于有效"><a href="#一、let声明的变量只在其所在的块级作用于有效" class="headerlink" title="一、let声明的变量只在其所在的块级作用于有效"></a>一、let声明的变量只在其所在的块级作用于有效</h4><p>所谓块级作用域是指：将多个代码语句封装在一起，通常是包含在一个大括号中，没有返回值。比如：</p>
-<pre><code>if (true) {  // 块级作用域  }
+<p>这听起来比较抽象。我们来用一个简单的例子，直观明了的解释什么是解构赋值。</p>
+<p>在解构赋值之前，我们如果需要一次性声明并赋值多个变量，需要这样操作：</p>
+<pre><code>let a = 123;
+let b = &#39;bbb&#39;;
+let c = true;
+</code></pre><p>这样，如果要声明初始化的变量很多（假设有十几二十个），这样写显得很麻烦，不够优雅。ES6中的解构赋值，就简化了这一操作。</p>
+<p>上面的例子用解构赋值，可以像下面这样操作，同样可以达到相同的效果。</p>
+<pre><code>// 为了让大家先直观了解什么是解构赋值，我们先用数组的结构赋值来演示讲解。
+let [a, b, c] = [123, &#39;bbb&#39;, true]
+</code></pre><p>这样一次性声明赋值多个变量就方便了很多。其实，这种写法属于<code>“模式匹配”</code>，只要等号两边的模式相同，就能将左边模式对应的值赋值给最右边对应模式处的变量。</p>
+<p>所以，本质上<strong>解构赋值就是采用<code>模式匹配</code>的方法，从数组/对象中提取对应位置或者对应名称属性的值，对变量进行赋值</strong>。</p>
+<h4 id="一、数组的解构赋值"><a href="#一、数组的解构赋值" class="headerlink" title="一、数组的解构赋值"></a>一、数组的解构赋值</h4><h5 id="1、常用的数组解构赋值"><a href="#1、常用的数组解构赋值" class="headerlink" title="1、常用的数组解构赋值"></a>1、常用的数组解构赋值</h5><p>我们先来看看数组解构赋值都有哪些方式。</p>
+<pre><code>// 最基本的数组解构赋值
+let [a, b, c] = [1, &#39;2&#39;, false];
+console.log(a, b, c);       // 1 &#39;2&#39; false
 
-for (let i = 0; i &lt; 10; i++) {  // 块级作用域  }
+// 使用嵌套数组进行解构赋值
+let [d, [e, f], g] = [1, [2, &#39;3&#39;], [4]];
+console.log(d, e, f, g);    // 1 2 &#39;3&#39; [4]
 
-while (true) {  // 块级作用域  }
+// 左边（声明变量）的模式中，可以有缺省
+let [ , h, , i] = [&#39;one&#39;, [1, 2, 3], null, {hProperty: &#39;HHH&#39;}];
+console.log(h, i);          // [1, 2, 3] {hProperty: &#39;HHH&#39;}
 
-switch (case) {  // 块级作用域  }
-</code></pre><p>以上例子，大括号（{…}）中形成的都属于块级作用域。</p>
-<p>众所周知，在ES6之前，JavaScript中只有全局作用域和局部（函数）作用域，不存在块级作用域。而且也只能使用关键字<code>var</code>来声明变量。所以用<code>var</code>声明的变量要么是属于全局作用域的全局变量，要么就是属于局部（函数）作用域的局部变量。</p>
-<p>在ES6标准中，添加了使用<code>let</code>声明变量的方式。使用<code>let</code>声明的变量只在块级作用域中有效，在其外层作用域访问时就会报错。</p>
-<pre><code>if (true) {
-    // 这个用let声明的变量a，只在当前块级作用域中有效
-    let a = 123;
-    // 这个用var声明的变量b，在全局作用域中都有效
-    var b = &#39;123&#39;;
+// 数组解构赋值可以使用rest参数
+let [first, ...rest] = [1, 2, 3, 4, 5];
+console.log(first, rest);   // 1 [2, 3, 4, 5]
 
-    console.log(a);     // 123
-    console.log(b);     // &#39;123&#39;
+// !!!这个例子需要特别注意!!!
+let [x, y, ...z] = [&#39;a&#39;];
+console.log(x, y, z);       // &#39;a&#39; undefined []
+/**
+ * 1、使用数组解构赋值，如果rest参数（上面的例子为变量z）没有对应赋值匹配
+ *    那么该变量会被赋值为空数组。
+ * 2、如果有的变量模式匹配失败，上面的例子中变量y没有匹配到赋值，
+ *    则会被赋值为 undefined
+ */
+</code></pre><h5 id="2、等号左侧（变量）模式匹配不成功"><a href="#2、等号左侧（变量）模式匹配不成功" class="headerlink" title="2、等号左侧（变量）模式匹配不成功"></a>2、等号左侧（变量）模式匹配不成功</h5><p>如果左侧模式匹配不成功，则变量会被赋值为<code>undefined</code>。</p>
+<pre><code>let [a] = [];       // a匹配失败
+console.log(a);     // undefined
+
+let [a, b] = [&#39;AAA&#39;];   // b匹配失败
+console.log(a, b);      // &#39;AAA&#39; undefined
+</code></pre><h5 id="3、等号右侧（赋值）模式匹配不成功"><a href="#3、等号右侧（赋值）模式匹配不成功" class="headerlink" title="3、等号右侧（赋值）模式匹配不成功"></a>3、等号右侧（赋值）模式匹配不成功</h5><p>如果等号左边（变量）的模式只匹配等号右边（赋值）的模式中的一部分，称为<code>不完全结构</code>。这样也是可以成功解构赋值的。</p>
+<pre><code>// 等号右边的值&#39;string&#39;并未匹配到左侧的变量
+let [a, b] = [1, {bProperty: &#39;BBB&#39;}, &#39;string&#39;];
+console.log(a, b);      // 1 {bProperty: &#39;BBB&#39;}
+
+// 等号右侧的值3，并未匹配到左侧的变量
+let [c, [d], e] = [1, [2, 3], 4];
+console.log(c, d, e);      // 1 2 4
+</code></pre><p>以上的例子都是不完全结构，依旧可以正常运行，完成解构赋值。</p>
+<h5 id="4、等号右侧不具备-Iterator-接口"><a href="#4、等号右侧不具备-Iterator-接口" class="headerlink" title="4、等号右侧不具备 Iterator 接口"></a>4、等号右侧不具备 Iterator 接口</h5><p>如果等号的右边不是数组（或者严格地说，不具备 Iterator 接口），那么将会报错。下面的解构赋值都会报错！！</p>
+<pre><code>// 作为简单类型的值，解构赋值时，会将其转换为对象（基本包装类型）
+let [foo] = 1;
+let [foo] = false;
+let [foo] = NaN;
+let [foo] = undefined;
+let [foo] = null;
+
+// 本身就不具备 Iterator 接口
+let [foo] = {};
+</code></pre><p>在解构赋值时，简单类型的值会被临时转换为对象（基本包装类型），它不具备 Iterator 接口，<code>{ }</code>本身也不具备 Iterator 接口，所以上面的解构赋值都会报错。</p>
+<h5 id="5、数组解构赋值设置默认值"><a href="#5、数组解构赋值设置默认值" class="headerlink" title="5、数组解构赋值设置默认值"></a>5、数组解构赋值设置默认值</h5><p>数组结构赋值时，允许为任何一个变量设置默认值。并且，<strong>当且仅当</strong>等号右侧的赋值严格等于（<code>===</code>，三个等号的严格等于）<code>undefined</code>时，默认值才会生效。</p>
+<pre><code>/**
+ * 下面这个例子，首先是变量a匹配右侧失败，被设置为默认的 undefined
+ * 因为a为 undefined，所以默认值生效
+ */
+let [a = 123] = [];
+console.log(a);     // 123
+
+let [b, c = &#39;CCC&#39;] = [[1, 2]];
+console,log(b, c);  // [1, 2] CCC
+
+let [d = false] = [true];
+console.log(d);     // true
+
+let [e = {}, f = 100, g = {gProperty: &#39;GGG&#39;}] = [false, 0, undefined];
+console.log(e, f, g);       // false 0 {gProperty: &#39;GGG&#39;}
+</code></pre><p>还有一个细节需要明确！<strong>默认值取值是<code>惰性求值</code>的</strong>。也就是说，当一个默认值是一个JS表达式的时候，如果默认值不需要生效，那么这个表达式是不会运行计算求值的。</p>
+<pre><code>// 因为 null 并不严格等于 undefined，所以 b 的默认值不会生效
+// 因此，a + 1是不会执行的。
+let [a, b = a + 1] = [1, null]
+console.log(a, b);      // 1 null
+
+// 这个例子同上
+function calDefault() {
+    return 123
 }
+let [c, d = calDefault()] = [1, 2];
+console.log(c, d);      // 1 2
+</code></pre><h4 id="二、对象的解构赋值"><a href="#二、对象的解构赋值" class="headerlink" title="二、对象的解构赋值"></a>二、对象的解构赋值</h4><p>对象的解构赋值和数组的类似，区别在于数组的解构赋值是有顺序的，是按照对应位置顺序来解构并赋值的。但是，对象的解构赋值不受顺序影响，是按照变量名和属性名相同的对应关系来解构并赋值的。</p>
+<h5 id="1、常用的对象解构赋值"><a href="#1、常用的对象解构赋值" class="headerlink" title="1、常用的对象解构赋值"></a>1、常用的对象解构赋值</h5><pre><code>// 最简单的对象解构赋值
+let {name, age} = {name: &#39;cao&#39;, age: 24};
+console.log(name, age);     // &#39;world&#39; 24
 
-console.log(a);     // 报错 —— ReferenceError: a is not defined.
-console.log(b);     // &#39;123&#39;
-</code></pre><p>上面的例子中，因为变量<code>a</code>是使用<code>let</code>声明的，它只在其所在的块级作用域——<code>if</code>后面的大括号({…})之中有效，在块级作用域外层访问时就会报错。而用<code>var</code>声明的变量<code>b</code>，不受块级作用域的约束，可以跨块级作用域访问。这个例子中，变量<code>b</code>实际是属于全局作用域的全局变量。</p>
-<p>那么，为什么ES6中需要引入块级作用域的概念呢？为什么要增加使用<code>let</code>来声明变量的方式呢？</p>
-<p>因为，如果没有块级作用域会导致一些不合理的情形出现。</p>
-<p>1、 内层变量可能会覆盖外层变量。</p>
-<pre><code>var a = &#39;Global&#39;;
-
-function inner() {
-    if (true) {
-        console.log(a);     // undefined
-        var a = &#39;inner&#39;;
-        /**
-         * 以上两行代码相当于
-         * var a;
-         * console.log(a);
-         * a = &#39;inner&#39;; 
-         * 再次使用var声明同名变量a，会覆盖全局变量a
-         */
+// 嵌套对象解构赋值
+let person = {
+    base: {
+        name: &#39;cao&#39;,
+        age: 24
+    },
+    address: &quot;Xi&#39;An&quot;
+}
+let {base: {name, age}, address} = person;
+console.log(name, age, address);        // &#39;cao&#39; 24 &quot;Xi&#39;An&quot;
+</code></pre><h5 id="2、嵌套对象解构赋值的特别说明！！（重要，一定要理解！）"><a href="#2、嵌套对象解构赋值的特别说明！！（重要，一定要理解！）" class="headerlink" title="2、嵌套对象解构赋值的特别说明！！（重要，一定要理解！）"></a>2、嵌套对象解构赋值的特别说明！！（重要，一定要理解！）</h5><pre><code>// 多层次嵌套
+let node = {
+  loc: {
+    start: {
+      line: 1,
+      column: 5
     }
-}
+  }
+};
+let { loc, loc: { start }, loc: { start: { line }} } = node;
 
-inner();
-</code></pre><p>这个例子，当在函数<code>inner</code>内部<code>if</code>代码块内首先访问变量<code>a</code>时，却得到的是<code>undefined</code>。这是因为紧随其后<code>var</code>声明的同名变量<code>a</code>会变量提升并覆盖全局变量<code>a</code>。所以打印出<code>a</code>的值为<code>undefined</code>。</p>
-<p>2、计数的循环变量会泄露为全局变量</p>
-<pre><code>for (var i = 0; i &lt; 10; i++) {
-    // 一些循环操作
-}
+console.log(loc,);      // {start: {line: 1, column: 5}}
+console.log(start);     // {line: 1, column: 5}
+console.log(line);      // 1
+</code></pre><p><strong>！！注意！！</strong>这里要特别说明，对<code>line</code>进行解构赋值的时候，只有<code>line</code>是变量，<code>loc</code>和<code>start</code>都是模式，不是变量。</p>
+<h5 id="3、等号左侧模式匹配不成功"><a href="#3、等号左侧模式匹配不成功" class="headerlink" title="3、等号左侧模式匹配不成功"></a>3、等号左侧模式匹配不成功</h5><p>和数组解构赋值类似，对象解构赋值中，如果等号左侧的变量名未匹配到右侧对象中相同的属性名，那么该变量默认赋值为<code>undefined</code>。</p>
+<pre><code>// 左侧 b 匹配失败
+let {a, b} = {a: [1, 2], c: &#39;CCC&#39;};
+console.log(b);     // undefined
 
-console.log(i);     // 10
-</code></pre><p>上面的例子，<code>for</code>循环中的循环变量按道理来说应该只属于<code>for</code>循环体，循环结束就不能再访问。但实际这样用<code>var</code>声明的<code>i</code>，属于外层作用域中的变量，也就是说<code>i</code>泄露为全局变量。所以当执行到<code>console.log(i)</code>时，因为<code>i</code>经过循环已经增加到<code>10</code>，所以打印出<code>i</code>的值为<code>10</code>。</p>
-<h4 id="二、let声明的变量不存在变量提升过程"><a href="#二、let声明的变量不存在变量提升过程" class="headerlink" title="二、let声明的变量不存在变量提升过程"></a>二、let声明的变量不存在变量提升过程</h4><p>用<code>var</code>声明的变量，会在其作用域中<strong>发生<code>变量提升</code>的过程</strong>。变量会被提升到作用域顶部，JS默认给变量一个<code>undefined</code>值。在使用<code>var</code>声明一个变量前访问它，得到的值永远是<code>undefined</code>。</p>
-<p>但是，在ES6中<strong>使用<code>let</code>声明的变量，不存在<code>变量提升</code>过程</strong>。也就是说，不能在使用<code>let</code>声明任何一个变量前访问它，否则都会报错。</p>
-<pre><code>console.log(a);     // 报错——ReferenceError: a is not defined
+// 左侧c、d都匹配失败
+let {c, d} = {};
+console.log(c, d);      // undefined undefined
+</code></pre><h5 id="4、等号右侧模式匹配不成功"><a href="#4、等号右侧模式匹配不成功" class="headerlink" title="4、等号右侧模式匹配不成功"></a>4、等号右侧模式匹配不成功</h5><p>等号右侧模式匹配不成功依旧可以成功解构赋值。</p>
+<pre><code>let val = {
+    a: &#39;AAA&#39;,
+    b: {
+        c: &#39;CCC&#39;
+    },
+    d: [1, 2, 3]
+};
+// 右侧属性 d 未匹配到左侧对应变量，不完全结构，不会报错
+let {a, b: {c}} = val;  // 这里b是模式，不是变量。
+console.log(a, c);      // &#39;AAA&#39; &#39;CCC&#39;
+</code></pre><h5 id="5、变量名与属性名不一致时"><a href="#5、变量名与属性名不一致时" class="headerlink" title="5、变量名与属性名不一致时"></a>5、变量名与属性名不一致时</h5><p>从上面对象解构赋值可以看出，要声明的变量名和属性名相同时才能成功解构并赋值。但如果要声明的变量名和对象名不一致呢？或者说我们需要将和属性名相同而解构赋值得到的同名变量定义成别的名字呢？这种情况，<strong>只能（只能）</strong>像下面这样。</p>
+<pre><code>// 这相当于把右侧的属性n的值解构到左侧，并重新起名为变量name
+let {n: name, a: age} = {n: &#39;cao&#39;, a: 24};
+console.log(name, age);     // &#39;cao&#39; 24
+</code></pre><p>上面的例子，其实我们最终定义的是<code>name</code>、<code>age</code>两个变量。相当于把右侧对象的属性<code>n</code>的值解构到左侧变量<code>n</code>（实际不存在变量<code>n</code>），并重新起名为变量<code>name</code>。变量<code>age</code>同理。</p>
+<h5 id="6、对象解构赋值设置默认值"><a href="#6、对象解构赋值设置默认值" class="headerlink" title="6、对象解构赋值设置默认值"></a>6、对象解构赋值设置默认值</h5><p>和数组解构赋值类似，对象的解构赋值也可以指定默认值。默认值生效的条件是，<strong>当且仅当</strong>对象的属性值<strong>严格等于</strong><code>undefined</code>。</p>
+<pre><code>let {a = 3} = {};
+console.log(a);     // 3
 
-let a = &#39;Hello World!&#39;；
-</code></pre><h4 id="三、let声明的变量存在“暂时性死区”"><a href="#三、let声明的变量存在“暂时性死区”" class="headerlink" title="三、let声明的变量存在“暂时性死区”"></a>三、let声明的变量存在“暂时性死区”</h4><p>只要使用<code>let</code>声明了一个变量，那这个变量就“绑定”到了这个作用域（全局/局部/块级），该变量就不再受外层作用域的影响。</p>
-<p>ES6明确规定，如果区块中存在<code>let</code>和<code>const</code>命令，这个区块对这些命令声明的变量从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
-<p>总之，在代码块内，使用<code>let</code>命令声明变量之前，该变量都是不可用的。这在语法上，称为<code>“暂时性死区”</code>（temporal dead zone，简称 TDZ）。</p>
-<pre><code>let g = &#39;Global&#39;;
+let {b, c = 5} = {b: 1};
+console.log(b, c);     // 1 5
 
-if (true) {
-    g = &#39;Block&#39;;    // 报错——ReferenceError: g is not defined
-    let g;
-}
-</code></pre><p>上面的例子中，<code>if</code>代码块最顶部一直到<code>let</code>声明变量<code>g</code>之前，都是<code>g</code>的“暂时性死区”。在该范围内访问<code>g</code>都会报错。</p>
-<h4 id="四、let声明的变量不允许再次重复声明"><a href="#四、let声明的变量不允许再次重复声明" class="headerlink" title="四、let声明的变量不允许再次重复声明"></a>四、let声明的变量不允许再次重复声明</h4><p>使用<code>var</code>声明变量，可以多次重复声明一个同名变量。最终变量的值为最后一次声明赋值的结果。</p>
-<pre><code>var a = 123;
-var a = &#39;Hello World!&#39;;
+let {c: d = 3} = {};
+console.log(d);     // 3
 
-console.log(a);     // &#39;Hello World!&#39;
-</code></pre><p>但是，<strong>在同一作用域（全局/局部/块级）中不允许使用let重复声明变量。或者说不允许存在与用<code>let</code>声明的变量同名的变量</strong>。以下代码都会报错！</p>
-<pre><code>// 先var，后let
-var a = 123;
-// ...一些代码
-let a = &#39;Hello World!&#39;;     // 报错——Uncaught SyntaxError: Identifier &#39;a&#39; has already been declared
+let {c: e = 3} = {c: 5};
+console.log(e);     // 5
 
-// 先let，后var
-let b = 123;
-// ...一些代码
-var b = &#39;Hello World!&#39;;     // 报错——Uncaught SyntaxError: Identifier &#39;a&#39; has already been declared
+let {message: msg = &#39;msg Content&#39;} = {};
+console.log(msg);     // &#39;msg Content&#39;
+</code></pre><h4 id="三、基本数据类型的解构赋值"><a href="#三、基本数据类型的解构赋值" class="headerlink" title="三、基本数据类型的解构赋值"></a>三、基本数据类型的解构赋值</h4><h5 id="1、字符串解构赋值"><a href="#1、字符串解构赋值" class="headerlink" title="1、字符串解构赋值"></a>1、字符串解构赋值</h5><p>字符串也可以解构赋值。因为解构时，字符串会被转换成了一个类似数组的对象。</p>
+<pre><code>const [a, b, c, d, e] = &#39;hello&#39;;
+console.log(a, b, c, e);        // &#39;h&#39; &#39;e&#39; &#39;l&#39; &#39;l&#39; &#39;o&#39; 
 
-// 先let，再let
-let c = 123;
-// ...一些代码
-let c = &#39;Hello World!&#39;;     // 报错——Uncaught SyntaxError: Identifier &#39;a&#39; has already been declared
-</code></pre><h4 id="五、let声明的全局变量不会作为window对象的一个属性"><a href="#五、let声明的全局变量不会作为window对象的一个属性" class="headerlink" title="五、let声明的全局变量不会作为window对象的一个属性"></a>五、let声明的全局变量不会作为window对象的一个属性</h4><p>使用<code>var</code>声明的全局变量，会被JS自动添加在全局对象<code>window</code>上，作为该对象的一个属性。</p>
-<pre><code>var myVar = &#39;myName&#39;;
+let {length} = &#39;hello&#39;;
+console.log(length);        // 5
+</code></pre><h5 id="2、数值、布尔值的解构赋值"><a href="#2、数值、布尔值的解构赋值" class="headerlink" title="2、数值、布尔值的解构赋值"></a>2、数值、布尔值的解构赋值</h5><p>解构赋值时，如果等号右边是数值和布尔值，则会先将其转换为对象（基本包装类型）。</p>
+<pre><code>let {toString: s1} = 123;
+console.log(s1 === Number.prototype.toString);   // true
 
-console.log(window.myVar);      // &#39;myName&#39;
-console.log(window.hasOwnProperty(&#39;myVar&#39;));    // true
-</code></pre><p>但是，使用let声明的全局变量不会作为window对象的一个属性。</p>
-<pre><code>let yourVar = &#39;yourName&#39;;
-
-console.log(window.yourVar);      // undefined
-console.log(window.hasOwnProperty(&#39;yourVar&#39;));    // false
-</code></pre><p>这个例子可以看出，<code>let</code>声明的全局变量<code>yourVar</code>，并没有被添加到<code>window</code>对象上，没有作为<code>window</code>的一个属性。</p>
-<h3 id="let-与const-的区别"><a href="#let-与const-的区别" class="headerlink" title="let 与const 的区别"></a>let 与const 的区别</h3><p>在ES6中，上述所有<code>let</code>所具有的特性，对于<code>const</code>来说同样存在。但<code>const</code>与<code>let</code>、<code>var</code>的区别在于<code>const</code>是用来声明<strong>常量</strong>的。</p>
-<p>常量具有以下特点：</p>
-<h4 id="一、常量值不可修改"><a href="#一、常量值不可修改" class="headerlink" title="一、常量值不可修改"></a>一、常量值不可修改</h4><p>一个常量，一旦声明，任何时间、任何地点都不能修改它的值。</p>
-<pre><code>const PI = 3.1415926;
-
-console.log(PI);    // 3.1415926
-
-PI = 3; // 报错——Uncaught TypeError: Assignment to constant variable.
-</code></pre><h4 id="二、常量在声明时必须必须立即初始化（赋初始值）"><a href="#二、常量在声明时必须必须立即初始化（赋初始值）" class="headerlink" title="二、常量在声明时必须必须立即初始化（赋初始值）"></a>二、常量在声明时必须必须立即初始化（赋初始值）</h4><p>不能只声明一个常量名，但不对其进行初始化赋值。否则在声明常量时就会报错。</p>
-<pre><code>const PI;   // 报错——Uncaught SyntaxError: Missing initializer in const declaration
-
-PI = 3.1415926;
-</code></pre><h4 id="三、常量的值不可修改的实质（重要！！）"><a href="#三、常量的值不可修改的实质（重要！！）" class="headerlink" title="三、常量的值不可修改的实质（重要！！）"></a>三、常量的值不可修改的实质（重要！！）</h4><p>实际上，常量的值不变，是指常量指向的那个内存地址中所保存的数据不可更改。对于简单的数据类型（数值，字符串、布尔值），他们本身具体的值就保存在常量所指向的那个内存地址中，所以不能修改改简单类型的数据值。</p>
-<p>但是，如果一个常量的值是一个引用类型值，那么常量所指向的内存地址中实际保存的是指向该引用类型值的一个指针（也就是引用类型值在内存中的地址）。所以const只能保证该引用类型地址不变，但该地址中的具体数据是可以变化的。</p>
-<p>下面的例子，代码不会报错，可以正常运行！</p>
-<pre><code>// !!!常量OBJ中实际保存的是后面的对象在内存中的地址!!!
-const OBJ = {};
-
-/**
- * !!!!!!!!!!
- * 修改OBJ.prop1，实际只是修改了对象的属性，
- * 但并没有改变该对象在内存中的地址，
- * 所以常量OBJ并没有发生变化
- * !!!!!!!!!!
- */
-OBJ.prop1 = 123;
-OBJ.prop2 = &#39;Hello World!&#39;
-
-/**
- * !!!!!!!!!!
- * 下面这一行就会报错,
- * 因为此时OBJ指向了另一个对象，OBJ中保存的地址发生了变化
- * !!!!!!!!!!
- */
-OBJ = {};   // 报错——Uncaught TypeError: Assignment to constant variable.
-</code></pre><p>下面的例子和上面同理。</p>
-<pre><code>const ARR = [];
-ARR.push(&#39;Hello&#39;);  // 可执行
-ARR.length = 0;     // 可执行
-ARR = [&#39;Dave&#39;];     // 报错，因为ARR重新指向了数组[&#39;Dave&#39;]所在的内存地址
+let {toString: s2} = true;
+console.log(s2 === Boolean.prototype.toString); // true
+</code></pre><h5 id="3、undefined-和-null-的解构赋值（报错！！）"><a href="#3、undefined-和-null-的解构赋值（报错！！）" class="headerlink" title="3、undefined 和 null 的解构赋值（报错！！）"></a>3、undefined 和 null 的解构赋值（报错！！）</h5><p><strong>解构赋值的规则是，只要等号右边的值不是数组或者对象，就先将其转为对象</strong>。由于<code>undefined</code>和<code>null</code>无法转为对象，所以对它们进行解构赋值，都会报错。</p>
+<pre><code>let { x } = undefined;  // TypeError
+let { y } = null;       // TypeError
 </code></pre>
                 
                 </div>
@@ -446,7 +495,7 @@ ARR = [&#39;Dave&#39;];     // 报错，因为ARR重新指向了数组[&#39;Dave
                         <span class="reprint-tip">转载请注明: </span>
                         <a href="https://webCaolixin.github.io" class="b-link-green">长安曹公子的博客</a>
                         <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                        <a href="/2019/03/15/ES6-let-const/" class="b-link-green">ES6 - let、const、var的区别</a>
+                        <a href="/2019/03/18/ES6-destructuring/" class="b-link-green">ES6 - 解构赋值</a>
                     </p>
                 </div>
             </div>
@@ -500,7 +549,7 @@ ARR = [&#39;Dave&#39;];     // 报错，因为ARR重新指向了数组[&#39;Dave
     <div class="row article-row">
         
         <div class="article col s12 m6">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
                 <a href="/2019/03/18/ES6-destructuring/">
                     <div class="card-image">
@@ -509,15 +558,14 @@ ARR = [&#39;Dave&#39;];     // 报错，因为ARR重新指向了数组[&#39;Dave
                         
                         <span class="card-title">ES6 - 解构赋值</span>
                     </div>
+
                     <div class="card-content article-content">
-                        <div class="summary">
-                            解构赋值
+                        <div class="summary">解构赋值
 ES6允许按照一定的模式，从数组和对象中提取值，然后对变量赋值，这被称为解构赋值。
 
 这听起来比较抽象。我们来用一个简单的例子，直观明了的解释什么是解构赋值。
 在解构赋值之前，我们如果需要一次性声明并赋值多个变量，需要这样操作：
-
-                        </div>
+</div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-calendar fa-fw"></i>2019-03-18
@@ -530,6 +578,7 @@ ES6允许按照一定的模式，从数组和对象中提取值，然后对变�
                             </span>
                         </div>
                     </div>
+
                     
                     <div class="card-action article-tags">
                         
@@ -547,21 +596,21 @@ ES6允许按照一定的模式，从数组和对象中提取值，然后对变�
         <div class="article col s12 m6">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2019/03/13/ECtx-scope-closure/">
+                <a href="/2019/03/15/ES6-let-const/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/JavaScript.jpg" class="responsive-img" alt="JavaScript - 执行环境、作用域、作用域链、闭包">
+                        <img src="/medias/featureimages/ES6.jpg" class="responsive-img" alt="ES6 - let、const、var的区别">
                         
-                        <span class="card-title">JavaScript - 执行环境、作用域、作用域链、闭包</span>
+                        <span class="card-title">ES6 - let、const、var的区别</span>
                     </div>
                     <div class="card-content article-content">
                         <div class="summary">
                             
-JavaScript中的执行环境、作用域、作用域链、闭包一直是一个非常有意思的话题，很多博主和大神都分享过相关的文章。这些知识点不仅比较抽象，不易理解，更重要的是与这些知识点相关的问题在面试中高频出现。之前我也看过不少文章，依旧是似懂非懂
+为了使JavaScript语言可以用来编写复杂的大型应用程序，成为企业级开发语言，ECMAScript 6.0（简称ES6）在标准中添加了很多新的特性。我们将用几篇文章总结一下ES6标准中一些常用的新特性。本片文章主要讲解ES6中的let
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-calendar fa-fw"></i>2019-03-13
+                                <i class="fa fa-calendar fa-fw"></i>2019-03-15
                             </span>
                             <span class="publish-author">
                                 <i class="fa fa-user fa-fw"></i>
@@ -574,8 +623,8 @@ JavaScript中的执行环境、作用域、作用域链、闭包一直是一个�
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/#JavaScript" target="_blank">
-                            <span class="chip bg-color">JavaScript</span>
+                        <a href="/tags/#ES6" target="_blank">
+                            <span class="chip bg-color">ES6</span>
                         </a>
                         
                     </div>
