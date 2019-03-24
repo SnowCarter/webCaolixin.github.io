@@ -10,9 +10,10 @@
 
     
     <meta name="keywords" content="ES6,hexo-theme-matery">
-    <meta name="description" content="1、函数参数的默认值在ES6之前，是不能直接给函数参数设置默认值的。如果需要设置默认值，就只能采用||（或）的短路原则来设置参数的默认值。
-function say (x, y) {
-    y = y || &amp;#39;World&amp;#39;">
+    <meta name="description" content="
+这篇文章我们来了解一下ES6中的箭头函数。首先会介绍一下箭头函数的基本语法，因为基本语法比较好理解，我们用示例做简单介绍即可。之后，我们重点来讨论一下箭头函数与普通函数之间的区别。
+
+一、基本语法ES6中允许使用箭头=&amp;gt;来定义箭头函">
 
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
     <meta name="mobile-web-app-capable" content="yes">
@@ -21,23 +22,25 @@ function say (x, y) {
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <meta property="og:type" content="website">
-    <meta property="og:title" content="ES6-函数的扩展">
-    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/22/ES6-function-extend/">
+    <meta property="og:title" content="ES6-箭头函数">
+    <meta property="og:url" content="https://webCaolixin.github.io/2019/03/24/ES6-arrow-function/">
     <meta property="og:site_name" content="长安曹公子的博客">
-    <meta property="og:description" content="1、函数参数的默认值在ES6之前，是不能直接给函数参数设置默认值的。如果需要设置默认值，就只能采用||（或）的短路原则来设置参数的默认值。
-function say (x, y) {
-    y = y || &amp;#39;World&amp;#39;">
+    <meta property="og:description" content="
+这篇文章我们来了解一下ES6中的箭头函数。首先会介绍一下箭头函数的基本语法，因为基本语法比较好理解，我们用示例做简单介绍即可。之后，我们重点来讨论一下箭头函数与普通函数之间的区别。
+
+一、基本语法ES6中允许使用箭头=&amp;gt;来定义箭头函">
     <meta property="og:locale" content="zh-CN">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="ES6-函数的扩展">
-    <meta name="twitter:description" content="1、函数参数的默认值在ES6之前，是不能直接给函数参数设置默认值的。如果需要设置默认值，就只能采用||（或）的短路原则来设置参数的默认值。
-function say (x, y) {
-    y = y || &amp;#39;World&amp;#39;">
-    
-    <link rel="canonical" href="/2019/03/22/ES6-function-extend/">
+    <meta name="twitter:title" content="ES6-箭头函数">
+    <meta name="twitter:description" content="
+这篇文章我们来了解一下ES6中的箭头函数。首先会介绍一下箭头函数的基本语法，因为基本语法比较好理解，我们用示例做简单介绍即可。之后，我们重点来讨论一下箭头函数与普通函数之间的区别。
 
-    <title>ES6-函数的扩展 | 长安曹公子的博客</title>
+一、基本语法ES6中允许使用箭头=&amp;gt;来定义箭头函">
+    
+    <link rel="canonical" href="/2019/03/24/ES6-arrow-function/">
+
+    <title>ES6-箭头函数 | 长安曹公子的博客</title>
 
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -252,7 +255,7 @@ function say (x, y) {
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        ES6-函数的扩展
+                        ES6-箭头函数
                     </div>
                 </div>
             </div>
@@ -277,7 +280,7 @@ function say (x, y) {
                 
                 <div class="author-info">
                     <span>
-                        <i class="fa fa-calendar fa-fw"></i>2019-03-22
+                        <i class="fa fa-calendar fa-fw"></i>2019-03-24
                     </span>
                 </div>
             </div>
@@ -287,182 +290,169 @@ function say (x, y) {
                 
 
                 
-                    <h3 id="1、函数参数的默认值"><a href="#1、函数参数的默认值" class="headerlink" title="1、函数参数的默认值"></a>1、函数参数的默认值</h3><p>在ES6之前，是不能直接给函数参数设置默认值的。如果需要设置默认值，就只能采用<code>||</code>（或）的短路原则来设置参数的默认值。</p>
-<pre><code>function say (x, y) {
-    y = y || &#39;World&#39;;
-    console.log(x + &#39; &#39; + y + &#39;!&#39;);
+                    <blockquote>
+<p>这篇文章我们来了解一下ES6中的箭头函数。首先会介绍一下箭头函数的基本语法，因为基本语法比较好理解，我们用示例做简单介绍即可。之后，我们重点来讨论一下箭头函数与普通函数之间的区别。</p>
+</blockquote>
+<h3 id="一、基本语法"><a href="#一、基本语法" class="headerlink" title="一、基本语法"></a>一、基本语法</h3><p>ES6中允许使用箭头<code>=&gt;</code>来定义箭头函数，具体语法，我们来看一个简单的例子：</p>
+<pre><code>// 箭头函数
+let fun = (name) =&gt; {
+    // 函数体
+    return `Hello ${name} !`;
+};
+
+// 等同于
+let fun = function (name) {
+    // 函数体
+    return `Hello ${name} !`;
+};
+</code></pre><p>可以看出，定义箭头函在数语法上要比普通函数简洁得多。箭头函数省去了<code>function</code>关键字，采用箭头<code>=&gt;</code>来定义函数。函数的参数放在<code>=&gt;</code>前面的括号中，函数体跟在<code>=&gt;</code>后的花括号中。</p>
+<p><strong>关于箭头函数的参数：</strong><br> <strong>①</strong> 如果箭头函数没有参数，直接写一个空括号即可。<br> <strong>②</strong> 如果箭头函数的参数只有一个，也可以省去包裹参数的括号。<br> <strong>③</strong> 如果箭头函数有多个参数，将参数依次用逗号(,)分隔，包裹在括号中即可。</p>
+<pre><code>// 没有参数
+let fun1 = () =&gt; {
+    console.log(111);
+};
+
+// 只有一个参数，可以省去参数括号
+let fun2 = name =&gt; {
+    console.log(`Hello ${name} !`)
+};
+
+// 有多个参数
+let fun3 = (val1, val2, val3) =&gt; {
+    return [val1, val2, val3];
+};
+</code></pre><p><strong>关于箭头函数的函数体：</strong><br> <strong>①</strong> 如果箭头函数的函数体只有一句代码，就是简单返回某个变量或者返回一个简单的JS表达式，可以省去函数体的大括号{ }。</p>
+<pre><code>let f = val =&gt; val;
+// 等同于
+let f = function (val) { return val };
+
+let sum = (num1, num2) =&gt; num1 + num2;
+// 等同于
+let sum = function(num1, num2) {
+  return num1 + num2;
+};
+</code></pre><p> <strong>②</strong> 如果箭头函数的函数体只有一句代码，就是返回一个对象，可以像下面这样写：</p>
+<pre><code>// 用小括号包裹要返回的对象，不报错
+let getTempItem = id =&gt; ({ id: id, name: &quot;Temp&quot; });
+
+// 但绝不能这样写，会报错。
+// 因为对象的大括号会被解释为函数体的大括号
+let getTempItem = id =&gt; { id: id, name: &quot;Temp&quot; };
+</code></pre><p> <strong>③</strong> 如果箭头函数的函数体只有一条语句并且不需要返回值（最常见是调用一个函数），可以给这条语句前面加一个<code>void</code>关键字</p>
+<pre><code>let fn = () =&gt; void doesNotReturn();
+</code></pre><p>箭头函数最常见的用处就是简化回调函数。</p>
+<pre><code>// 例子一
+// 正常函数写法
+[1,2,3].map(function (x) {
+  return x * x;
+});
+
+// 箭头函数写法
+[1,2,3].map(x =&gt; x * x);
+
+// 例子二
+// 正常函数写法
+var result = [2, 5, 1, 4, 3].sort(function (a, b) {
+  return a - b;
+});
+
+// 箭头函数写法
+var result = [2, 5, 1, 4, 3].sort((a, b) =&gt; a - b);
+</code></pre><h3 id="二、箭头函数与普通函数的区别"><a href="#二、箭头函数与普通函数的区别" class="headerlink" title="二、箭头函数与普通函数的区别"></a>二、箭头函数与普通函数的区别</h3><h4 id="1、语法更加简洁、清晰"><a href="#1、语法更加简洁、清晰" class="headerlink" title="1、语法更加简洁、清晰"></a>1、语法更加简洁、清晰</h4><p>从上面的基本语法示例中可以看出，箭头函数的定义要比普通函数定义简洁、清晰得多，很快捷。</p>
+<h4 id="2、箭头函数不会创建自己的this（重要！！深入理解！！）"><a href="#2、箭头函数不会创建自己的this（重要！！深入理解！！）" class="headerlink" title="2、箭头函数不会创建自己的this（重要！！深入理解！！）"></a>2、箭头函数不会创建自己的this（重要！！深入理解！！）</h4><p>我们先来看看<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">MDN</a>上对箭头函数<code>this</code>的解释。</p>
+<blockquote>
+<p>箭头函数不会创建自己的<code>this</code>，所以它没有自己的<code>this</code>，它只会从自己的作用域链的上一层继承<code>this</code>。</p>
+</blockquote>
+<p>箭头函数没有自己的<code>this</code>，它会捕获自己在<strong>定义时</strong>（注意，是定义时，不是调用时）所处的<strong>外层执行环境的<code>this</code></strong>，并继承这个<code>this</code>值。所以，箭头函数中<code>this</code>的指向在它被定义的时候就已经确定了，之后永远不会改变。</p>
+<p>来看个例子：</p>
+<pre><code>var id = &#39;Global&#39;;
+
+function fun1() {
+    // setTimeout中使用普通函数
+    setTimeout(function(){
+        console.log(this.id);
+    }, 2000);
 }
 
-say(&#39;Hello&#39;);           // &#39;Hello World!&#39;
-say(&#39;Hello&#39;, &#39;China&#39;);  // &#39;Hello China!&#39;
-say(&#39;Hello&#39;, &#39;&#39;);       // &#39;Hello World!&#39;
-</code></pre><p>像上面这样定义函数默认值，虽然基本能达到想要的结果，但也存在一个最大的问题：如果想要传给函数的参数值本身就是<code>&#39;&#39;</code>（空字符串,比如上面例子最后一次函数调用）、<code>0</code>、<code>false</code>、<code>null</code>这样的值，但使用<code>||</code>短路原则却会使默认值生效。</p>
-<p>所以，我们需要在函数中加以判断，当某个参数确定未传值时，再赋默认值。</p>
-<pre><code>function say (x, y) {
-    if (typeof x === &#39;undefined&#39;) {
-        y = &#39;World&#39;
-    }
-}
-</code></pre><p>这样虽然解决了前面所说的问题，但是，当一个函数的参数较多时，尤其在函数参数值需要做多种数据类型判断的时候，可能需要写很多<code>if</code>语句来判断，或者<code>if</code>语句的条件会变得很复杂，这样也不利于阅读和维护。</p>
-<p>所以，为了解决以上问题，ES6中允许在函数声明时在形参的位置就给函数参数设置默认值，直接将默认值赋值在形参后面即可。</p>
-<pre><code>function say (x, y = &#39;World&#39;) {
-    console.log(x + &#39; &#39; + y + &#39;!&#39;);
+function fun2() {
+    // setTimeout中使用箭头函数
+    setTimeout(() =&gt; {
+        console.log(this.id);
+    }, 2000)
 }
 
-say(&#39;Hello&#39;);           // &#39;Hello World!&#39;
-say(&#39;Hello&#39;, &#39;China&#39;);  // &#39;Hello China!&#39;
+fun1.call({id: &#39;Obj&#39;});     // &#39;Global&#39;
 
-// 传入 &#39;&#39;、null、0、false都取值所传参数的值，不会使默认值生效
-say(&#39;Hello&#39;, &#39;&#39;);       // &#39;Hello !&#39;
-say(&#39;Hello&#39;, null);       // &#39;Hello null!&#39;
-say(&#39;Hello&#39;, 0);       // &#39;Hello 0!&#39;
-say(&#39;Hello&#39;, false);       // &#39;Hello false!&#39;
+fun2.call({id: &#39;Obj&#39;});     // &#39;Obj&#39;
+</code></pre><p>上面这个例子，函数<code>fun1</code>中的<code>setTimeout</code>中使用普通函数，2秒后函数执行时，这时函数其实是在全局作用域执行的，所以<code>this</code>指向<code>Window</code>对象，<code>this.id</code>就指向全局变量<code>id</code>，所以输出<code>&#39;Global&#39;</code>。<br>但是函数<code>fun2</code>中的<code>setTimeout</code>中使用的是箭头函数，这个箭头函数的<code>this</code>在定义时就确定了，它继承了它外层<code>fun2</code>的执行环境中的<code>this</code>，而<code>fun2</code>调用时<code>this</code>被<code>call</code>方法改变到了对象<code>{id: &#39;Obj&#39;}</code>中，所以输出<code>&#39;Obj&#39;</code>。</p>
+<p>再来看另一个例子：</p>
+<pre><code>var id = &#39;GLOBAL&#39;;
+var obj = {
+  id: &#39;OBJ&#39;,
+  a: function(){
+    console.log(this.id);
+  },
+  b: () =&gt; {
+      console.log(this.id);
+  }
+};
 
-// 只有参数未传值或者所传参数值严格等于undefined时，默认参数才生效
-say(&#39;Hello&#39;, undefined);       // &#39;Hello World!&#39;
+obj.a();    // &#39;OBJ&#39;
+obj.b();    // &#39;GLOBAL&#39;
+</code></pre><p>上面这个例子，对象<code>obj</code>的方法<code>a</code>使用普通函数定义的，<strong>普通函数作为对象的方法调用时，<code>this</code>指向它所属的对象</strong>。所以，<code>this.id</code>就是<code>obj.id</code>，所以输出<code>&#39;OBJ&#39;</code>。<br>但是方法<code>b</code>是使用箭头函数定义的，箭头函数中的<code>this</code>实际是继承的它定义时所处的全局执行环境中的<code>this</code>，所以指向<code>Window</code>对象，所以输出<code>&#39;GLOBAL&#39;</code>。（<strong>这里要注意，定义对象的大括号<code>{}</code>是无法形成一个单独的执行环境的，它依旧是处于全局执行环境中！！</strong>）</p>
+<h4 id="3、箭头函数继承而来的this指向永远不变（重要！！深入理解！！）"><a href="#3、箭头函数继承而来的this指向永远不变（重要！！深入理解！！）" class="headerlink" title="3、箭头函数继承而来的this指向永远不变（重要！！深入理解！！）"></a>3、箭头函数继承而来的this指向永远不变（重要！！深入理解！！）</h4><p>上面的例子，就完全可以说明箭头函数继承而来的<code>this</code>指向永远不变。对象<code>obj</code>的方法<code>b</code>是使用箭头函数定义的，这个函数中的<code>this</code>就<strong>永远指向</strong>它定义时所处的全局执行环境中的<code>this</code>，即便这个函数是作为对象<code>obj</code>的方法调用，<code>this</code>依旧指向<code>Window</code>对象。</p>
+<h4 id="4、-call-apply-bind-无法改变箭头函数中this的指向"><a href="#4、-call-apply-bind-无法改变箭头函数中this的指向" class="headerlink" title="4、.call()/.apply()/.bind()无法改变箭头函数中this的指向"></a>4、.call()/.apply()/.bind()无法改变箭头函数中this的指向</h4><p><code>.call()</code>/<code>.apply()</code>/<code>.bind()</code>方法可以用来动态修改函数执行时<code>this</code>的指向，但由于箭头函数的<code>this</code>定义时就已经确定且永远不会改变。所以使用这些方法永远也改变不了箭头函数<code>this</code>的指向，虽然这么做代码不会报错。</p>
+<pre><code>var id = &#39;Global&#39;;
+// 箭头函数定义在全局作用域
+let fun1 = () =&gt; {
+    console.log(this.id)
+};
 
-// 构造函数也可以定义参数默认值
-function Point(x = 0, y = 0) {
-  this.x = x;
-  this.y = y;
+fun1();     // &#39;Global&#39;
+// this的指向不会改变，永远指向Window对象
+fun1.call({id: &#39;Obj&#39;});     // &#39;Global&#39;
+fun1.apply({id: &#39;Obj&#39;});    // &#39;Global&#39;
+fun1.bind({id: &#39;Obj&#39;})();   // &#39;Global&#39;
+</code></pre><h4 id="5、箭头函数不能作为构造函数使用"><a href="#5、箭头函数不能作为构造函数使用" class="headerlink" title="5、箭头函数不能作为构造函数使用"></a>5、箭头函数不能作为构造函数使用</h4><p>我们先了解一下构造函数的new都做了些什么？简单来说，分为四步：<br> ① JS内部首先会先生成一个对象；<br> ② 再把函数中的this指向该对象；<br> ③ 然后执行构造函数中的语句；<br> ④ 最终返回该对象实例。</p>
+<p>但是！！因为箭头函数没有自己的<code>this</code>，它的<code>this</code>其实是继承了外层执行环境中的<code>this</code>，且<code>this</code>指向永远不会随在哪里调用、被谁调用而改变，所以箭头函数不能作为构造函数使用，或者说构造函数不能定义成箭头函数，否则用<code>new</code>调用时会报错！</p>
+<pre><code>let Fun = (name, age) =&gt; {
+    this.name = name;
+    this.age = age;
+};
+
+// 报错
+let p = new Fun(&#39;cao&#39;, 24);
+</code></pre><h4 id="6、箭头函数没有自己的arguments"><a href="#6、箭头函数没有自己的arguments" class="headerlink" title="6、箭头函数没有自己的arguments"></a>6、箭头函数没有自己的arguments</h4><p>箭头函数没有自己的<code>arguments</code>对象。在箭头函数中访问<code>arguments</code>实际上获得的是外层局部（函数）执行环境中的值。</p>
+<pre><code>// 例子一
+let fun = (val) =&gt; {
+    console.log(val);   // 111
+    // 下面一行会报错
+    // Uncaught ReferenceError: arguments is not defined
+    // 因为外层全局环境没有arguments对象
+    console.log(arguments); 
+};
+fun(111);
+
+// 例子二
+function outer(val1, val2) {
+    let argOut = arguments;
+    console.log(argOut);    // ①
+    let fun = () =&gt; {
+        let argIn = arguments;
+        console.log(argIn);     // ②
+        console.log(argOut === argIn);  // ③
+    };
+    fun();
 }
-const p = new Point(1);
-console.log(p);     // { x: 1, y: 0 }
-</code></pre><p>显然，ES6这种定义函数参数默认值的方法要简单、清晰得多。<strong>最重要的是，这种方法定义的参数默认值只有当参数未传值或者传值严格等于<code>undefined</code>的时候，默认值才会生效</strong>。</p>
-<p>这里，还有一些需要格外注意的地方！！</p>
-<p><strong>① 函数参数（不论是否设置了默认值）都是JS内部默认声明过的，所以不能在函数体内再使用let/const重复声明。</strong>否则，会报错！</p>
-<pre><code>function createArr(x, y = 0) {
-    let x = 0;      // 报错
-    let y = 0;      // 也会报错
-    return [x, y];
-}
-</code></pre><p><strong>② 如果一个函数设置了参数默认值，则该函数任何一个参数（包括设置了默认值的参数）都不能重名！</strong></p>
-<pre><code>// 没有参数设置默认值，这不会报错
-function fn1(x, x, y) {
-  console.log(x, y);
-}
-// 注意，最终x输出为2。因为第二个参数覆盖了第一个
-fn1(1, 2, 3);   // 2 3
+outer(111, 222);
+</code></pre><p>上面例子二，①②③处的输出结果如下：<br><img src="/medias/article/coding/arrow-function/arrow-function-arguments.png" alt="箭头函数的arguments"><br>很明显，普通函数<code>outer</code>内部的箭头函数<code>fun</code>中的<code>arguments</code>对象，其实是沿作用域链向上访问的外层<code>outer</code>函数的<code>arguments</code>对象。</p>
+<p><strong>可以在箭头函数中使用rest参数代替arguments对象，来访问箭头函数的参数列表！！</strong></p>
+<h4 id="7、箭头函数没有原型prototype"><a href="#7、箭头函数没有原型prototype" class="headerlink" title="7、箭头函数没有原型prototype"></a>7、箭头函数没有原型prototype</h4><pre><code>let sayHi = () =&gt; {
+    console.log(&#39;Hello World !&#39;)
+};
+console.log(sayHi.prototype); // undefined
+</code></pre><h4 id="8、箭头函数不能用作Generator函数，不能使用yeild关键字"><a href="#8、箭头函数不能用作Generator函数，不能使用yeild关键字" class="headerlink" title="8、箭头函数不能用作Generator函数，不能使用yeild关键字"></a>8、箭头函数不能用作Generator函数，不能使用yeild关键字</h4><p>这一点等到讲解Generator函数的时候我们在深入讨论。</p>
 
-// 参数设置了默认值，x又重名，所以会报错
-function fn2(x, x, y = 1) {
-  // ...
-}
-</code></pre><p><strong>③ 函数参数的默认值可以是任何JS表达式，但每调用一次函数，该表达式都会重新计算求值！</strong></p>
-<pre><code>let x = 99;
-function cal(p = x + 1) {
-  console.log(p);
-}
-
-cal();  // 100
-
-x = 100;
-cal();  // 101
-</code></pre><p>上面的例子，每调用一次<code>cal</code>函数，参数<code>p</code>都会重新计算默认值<code>x + 1</code>，并不会记住上次调用所求得的<code>p</code>的默认值！</p>
-<h3 id="2、参数默认值可以和解构赋值结合使用"><a href="#2、参数默认值可以和解构赋值结合使用" class="headerlink" title="2、参数默认值可以和解构赋值结合使用"></a>2、参数默认值可以和解构赋值结合使用</h3><p>函数参数的默认值可以和解构赋值、解构赋值的默认值，结合起来使用。</p>
-<h4 id="2-1-只使用解构赋值默认值"><a href="#2-1-只使用解构赋值默认值" class="headerlink" title="2.1 只使用解构赋值默认值"></a>2.1 只使用解构赋值默认值</h4><pre><code>// 这里只使用了解构赋值的默认值，未使用参数默认值
-function foo({x, y = 5}) {
-  console.log([x, y]);
-}
-
-/**
- * 下面调用时传的参数，
- * 会与{x, y = 5}进行模式匹配，进行解构赋值
- */
-foo({});        // [undefined, 5]
-foo({x: 1});    // [1, 5]
-foo({x: 1, y: 2});      // [1, 2]
-foo();      // TypeError: Cannot read property &#39;x&#39; of undefined
-</code></pre><p>上面的例子，只使用了解构赋值的默认值，未使用参数默认值。如果将一个对象传给<code>foo</code>函数，那么这个对象就会和{x, y = 5}进行模式匹配，最终为参数解构赋值。但如果不给函数传参（例如最后一行——<code>foo()</code>），或者传参为<code>null</code>，那么就会报错。因为，<code>undefined</code>、<code>null</code>无法进行解构赋值。</p>
-<p>上面的例子的报错问题，其实可以通过结合使用函数参数默认值的方法来避免。</p>
-<h4 id="2-2-同时使用解构赋值默认值和参数默认值"><a href="#2-2-同时使用解构赋值默认值和参数默认值" class="headerlink" title="2.2 同时使用解构赋值默认值和参数默认值"></a>2.2 同时使用解构赋值默认值和参数默认值</h4><pre><code>// 这里不仅使用了解构赋值默认值，同时使用了函数参数默认值
-function foo({x, y = 5} = {}) {
-  console.log(x, y);
-}
-
-// 这样调用不会报错
-foo();  // undefined 5
-</code></pre><p>上面的例子，调用<code>foo</code>函数未传入参数。此时，首先会使函数参数的默认值（也就是声明函数时的<code>= {}</code>）生效。接下来，参数默认值<code>{ }</code>会与<code>{x, y = 5}</code>再进行解构赋值。其中解构赋值中，参数<code>y</code>具有默认值为<code>5</code>。</p>
-<p>作为练习，请思考下面两种写法有什么区别？</p>
-<pre><code>// 写法一
-function f1({x = 0, y = 0} = {}) {
-  return [x, y];
-}
-
-// 写法二
-function f2({x, y} = { x: 0, y: 0 }) {
-  return [x, y];
-}
-</code></pre><h3 id="3、需要设置默认值的参数最好放在其余参数最后面"><a href="#3、需要设置默认值的参数最好放在其余参数最后面" class="headerlink" title="3、需要设置默认值的参数最好放在其余参数最后面"></a>3、需要设置默认值的参数最好放在其余参数最后面</h3><p>一般情况下，建议将需要设置默认值的参数放在其余参数最后面。原因主要有以下两点：</p>
-<ul>
-<li>因为这样比较容易看出来，到底省略了哪些参数。</li>
-<li>如果非尾部的参数设置默认值，实际上这个参数是没法省略的,必须显式传入<code>undefined</code>才能使默认值生效。</li>
-</ul>
-<pre><code>function f(x, y = 5, z) {
-  return [x, y, z];
-}
-
-f();    // [undefined, 5, undefined]
-f(1);   // [1, 5, undefined]
-f(1, ,2);   // 省略第二个参数，会报错
-
-// 需要显式传入undefined作为第二个参数值
-f(1, undefined, 2);     // [1, 5, 2]
-</code></pre><h3 id="4、函数的rest参数"><a href="#4、函数的rest参数" class="headerlink" title="4、函数的rest参数"></a>4、函数的rest参数</h3><p>ES6引入了<code>rest</code>参数（形为<code>...变量名</code>）。这个变量名对应的值是一个数组，里面按参数传入的顺序存放着函数除了具名参数以外的剩余参数。</p>
-<p><strong>剩余参数只能/必须是函数的最后一个参数</strong>。但它有可能保存的是传入函数的所有参数值，也可能是传入函数的一部分参数值。</p>
-<pre><code>// 这个rest参数——param保存的就是所有传入参数的值
-function r1(...param) {
-    console.log(param);
-}
-r1(1, 2, 3, 4, 5);  // [1, 2, 3, 4, 5]
-
-// 这个rest参数——param保存的就是除具名参数以外的参数值
-function r2(param1, param2, ...param) {
-    console.log(param1, param2, ...param)
-}
-r2();   // 1 2 [3, 4, 5]
-</code></pre><p>我们可以使用<code>rest</code>参数来代替函数的<code>arguments</code>对象。最重要的是，<code>rest</code>参数是一个数组，可以使用所有数组的方法。但是，<code>arguments</code>只是一个类数组对象，很多数组的方法无法使用。</p>
-<h3 id="5、函数的length、name属性"><a href="#5、函数的length、name属性" class="headerlink" title="5、函数的length、name属性"></a>5、函数的length、name属性</h3><p>首先，要明确一点：所有函数都是Function类型的一个实例对象。所以每个函数都有一些自己的属性和方法。最后我们就来了解一下函数对象的<code>length</code>和<code>name</code>属性。</p>
-<h4 id="5-1、length属性"><a href="#5-1、length属性" class="headerlink" title="5.1、length属性"></a>5.1、length属性</h4><p>函数的<code>length</code>属性一般情况下表示函数期望接收到的参数的个数。但在设置了参数默认值或者rest参数时，会有一些变化。</p>
-<pre><code>(function (a) {}).length;           // 1
-
-(function (a = 0, b, c) {}).length; // 0
-(function (a, b = 1, c) {}).length; // 1
-(function (a, b, c = 5) {}).length; // 2
-
-(function(arg1, ...args) {}).length;      // 1  
-(function(...args) {}).length;      // 0
-</code></pre><p>可以看出：</p>
-<ul>
-<li>一般情况下，<code>length</code>属性返回的是函数声明时所定义的的参数的个数；</li>
-<li>当设置了参数默认值时，<code>length</code>属性返回的是<strong>第一个设置了默认值的参数之前的参数个数，之后的参数不再计入</strong>；</li>
-<li>当设置了<code>rest</code>参数，因为<code>rest</code>参数只能是函数的最后一个参数。所以<code>length</code>返回的是<code>rest</code>参数之前的参数个数。</li>
-</ul>
-<h4 id="5-2、name属性"><a href="#5-2、name属性" class="headerlink" title="5.2、name属性"></a>5.2、name属性</h4><p>函数的<code>name</code>属性，返回的是该函数的函数名。</p>
-<pre><code>// 函数声明
-function fun1() {}
-console.log(fun1.name);  // &#39;fun1&#39;（ES5/ES6）
-
-// 函数表达式
-let fun2 = function() {};
-// ES5：&#39;&#39;(空字符串)
-// ES6：&#39;fun2&#39;
-console.log(fun2.name);
-
-// 将具名函数赋值给一个变量
-let temp = function fun3() {};
-console.log(temp.name);
-// &#39;fun3&#39;(ES5/ES6)
-
-// Function()构造函数——返回&#39;anonymous&#39;
-console.log((new Function).name);   // &#39;anonymous&#39;
-
-// .bind()方法返回的函数，name属性值会加上&#39;bound &#39;（带个空格）前缀。
-function fun4() {};
-console.log(fun4.bind({}).name);     // &#39;bound fun4&#39;
-
-console.log((function(){}).bind({}).name);  // &#39;bound &#39;
-</code></pre>
                 
                 </div>
 
@@ -483,7 +473,7 @@ console.log((function(){}).bind({}).name);  // &#39;bound &#39;
                         <span class="reprint-tip">转载请注明: </span>
                         <a href="https://webCaolixin.github.io" class="b-link-green">长安曹公子的博客</a>
                         <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                        <a href="/2019/03/22/ES6-function-extend/" class="b-link-green">ES6-函数的扩展</a>
+                        <a href="/2019/03/24/ES6-arrow-function/" class="b-link-green">ES6-箭头函数</a>
                     </p>
                 </div>
             </div>
@@ -537,7 +527,7 @@ console.log((function(){}).bind({}).name);  // &#39;bound &#39;
     <div class="row article-row">
         
         <div class="article col s12 m6">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
                 <a href="/2019/03/24/ES6-arrow-function/">
                     <div class="card-image">
@@ -546,13 +536,12 @@ console.log((function(){}).bind({}).name);  // &#39;bound &#39;
                         
                         <span class="card-title">ES6-箭头函数</span>
                     </div>
+
                     <div class="card-content article-content">
                         <div class="summary">
-                            
 这篇文章我们来了解一下ES6中的箭头函数。首先会介绍一下箭头函数的基本语法，因为基本语法比较好理解，我们用示例做简单介绍即可。之后，我们重点来讨论一下箭头函数与普通函数之间的区别。
 
-一、基本语法ES6中允许使用箭头=&gt;来定义箭头函
-                        </div>
+一、基本语法ES6中允许使用箭头=&gt;来定义箭头函</div>
                         <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-calendar fa-fw"></i>2019-03-24
@@ -565,6 +554,7 @@ console.log((function(){}).bind({}).name);  // &#39;bound &#39;
                             </span>
                         </div>
                     </div>
+
                     
                     <div class="card-action article-tags">
                         
@@ -582,24 +572,22 @@ console.log((function(){}).bind({}).name);  // &#39;bound &#39;
         <div class="article col s12 m6">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/2019/03/21/ES6-templateString/">
+                <a href="/2019/03/22/ES6-function-extend/">
                     <div class="card-image">
                         
-                        <img src="/medias/featureimages/ES6.jpg" class="responsive-img" alt="ES6-字符串的扩展">
+                        <img src="/medias/featureimages/ES6.jpg" class="responsive-img" alt="ES6-函数的扩展">
                         
-                        <span class="card-title">ES6-字符串的扩展</span>
+                        <span class="card-title">ES6-函数的扩展</span>
                     </div>
                     <div class="card-content article-content">
                         <div class="summary">
-                            一、模板字符串
-模板字符串是增强版的字符串，用两个反引号（` `）包含来表示。
-
-1、当做普通字符串使用在` `中如果只包含简单的字符串字面量，那么它和用引号（单/双引号）定义的字符串没有什么区别。
-let s = `Hello World
+                            1、函数参数的默认值在ES6之前，是不能直接给函数参数设置默认值的。如果需要设置默认值，就只能采用||（或）的短路原则来设置参数的默认值。
+function say (x, y) {
+    y = y || &#39;World&#39;
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-calendar fa-fw"></i>2019-03-21
+                                <i class="fa fa-calendar fa-fw"></i>2019-03-22
                             </span>
                             <span class="publish-author">
                                 <i class="fa fa-user fa-fw"></i>
