@@ -619,11 +619,19 @@ article .article-tags .chip {
     font-size: 1.05rem;
 }
 
-#articleContent .centerContent {
+#articleContent .center-content {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.75rem;
 }
+
+#articleContent #content-ctn span.title {
+    font-weight: bold;
+}
+
+#articleContent #content-ctn span.date {
+    padding-left: 100px;
+  }
 
 #articleContent a {
     padding: 0 2px;
